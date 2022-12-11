@@ -9,13 +9,13 @@
 /* Begin PBXBuildFile section */
 		0BF84FBF294632A6004F044D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF84FBE294632A6004F044D /* AppDelegate.swift */; };
 		0BF84FC1294632A6004F044D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF84FC0294632A6004F044D /* SceneDelegate.swift */; };
-		0BF84FC3294632A6004F044D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF84FC2294632A6004F044D /* ViewController.swift */; };
-		0BF84FC6294632A6004F044D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0BF84FC4294632A6004F044D /* Main.storyboard */; };
 		0BF84FC8294632A7004F044D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0BF84FC7294632A7004F044D /* Assets.xcassets */; };
 		0BF84FCB294632A7004F044D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0BF84FC9294632A7004F044D /* LaunchScreen.storyboard */; };
 		0BF84FD6294632A8004F044D /* PodCastTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF84FD5294632A8004F044D /* PodCastTests.swift */; };
 		0BF84FE0294632A8004F044D /* PodCastUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF84FDF294632A8004F044D /* PodCastUITests.swift */; };
 		0BF84FE2294632A8004F044D /* PodCastUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF84FE1294632A8004F044D /* PodCastUITestsLaunchTests.swift */; };
+		0BF84FF429463349004F044D /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF84FF329463349004F044D /* MainTabBarController.swift */; };
+		0BF84FF8294634A9004F044D /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF84FF7294634A9004F044D /* FavoriteViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,8 +39,6 @@
 		0BF84FBB294632A6004F044D /* PodCast.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PodCast.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BF84FBE294632A6004F044D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0BF84FC0294632A6004F044D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		0BF84FC2294632A6004F044D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		0BF84FC5294632A6004F044D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0BF84FC7294632A7004F044D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0BF84FCA294632A7004F044D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0BF84FCC294632A7004F044D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -49,6 +47,8 @@
 		0BF84FDB294632A8004F044D /* PodCastUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PodCastUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BF84FDF294632A8004F044D /* PodCastUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodCastUITests.swift; sourceTree = "<group>"; };
 		0BF84FE1294632A8004F044D /* PodCastUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodCastUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		0BF84FF329463349004F044D /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
+		0BF84FF7294634A9004F044D /* FavoriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,13 +99,10 @@
 		0BF84FBD294632A6004F044D /* PodCast */ = {
 			isa = PBXGroup;
 			children = (
-				0BF84FBE294632A6004F044D /* AppDelegate.swift */,
-				0BF84FC0294632A6004F044D /* SceneDelegate.swift */,
-				0BF84FC2294632A6004F044D /* ViewController.swift */,
-				0BF84FC4294632A6004F044D /* Main.storyboard */,
-				0BF84FC7294632A7004F044D /* Assets.xcassets */,
-				0BF84FC9294632A7004F044D /* LaunchScreen.storyboard */,
-				0BF84FCC294632A7004F044D /* Info.plist */,
+				0BF84FF1294632F2004F044D /* Resources */,
+				0BF84FF0294632DE004F044D /* PodCastDataLayer */,
+				0BF84FEF294632D9004F044D /* Modules */,
+				0BF84FEE294632D4004F044D /* Applications */,
 			);
 			path = PodCast;
 			sourceTree = "<group>";
@@ -125,6 +122,65 @@
 				0BF84FE1294632A8004F044D /* PodCastUITestsLaunchTests.swift */,
 			);
 			path = PodCastUITests;
+			sourceTree = "<group>";
+		};
+		0BF84FEE294632D4004F044D /* Applications */ = {
+			isa = PBXGroup;
+			children = (
+				0BF84FC0294632A6004F044D /* SceneDelegate.swift */,
+				0BF84FBE294632A6004F044D /* AppDelegate.swift */,
+			);
+			path = Applications;
+			sourceTree = "<group>";
+		};
+		0BF84FEF294632D9004F044D /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				0BF84FF529463499004F044D /* Favorites */,
+				0BF84FF229463336004F044D /* MainTabBar */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		0BF84FF0294632DE004F044D /* PodCastDataLayer */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = PodCastDataLayer;
+			sourceTree = "<group>";
+		};
+		0BF84FF1294632F2004F044D /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				0BF84FCC294632A7004F044D /* Info.plist */,
+				0BF84FC9294632A7004F044D /* LaunchScreen.storyboard */,
+				0BF84FC7294632A7004F044D /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		0BF84FF229463336004F044D /* MainTabBar */ = {
+			isa = PBXGroup;
+			children = (
+				0BF84FF329463349004F044D /* MainTabBarController.swift */,
+			);
+			path = MainTabBar;
+			sourceTree = "<group>";
+		};
+		0BF84FF529463499004F044D /* Favorites */ = {
+			isa = PBXGroup;
+			children = (
+				0BF84FF62946349E004F044D /* Controller */,
+			);
+			path = Favorites;
+			sourceTree = "<group>";
+		};
+		0BF84FF62946349E004F044D /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				0BF84FF7294634A9004F044D /* FavoriteViewController.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -233,7 +289,6 @@
 			files = (
 				0BF84FCB294632A7004F044D /* LaunchScreen.storyboard in Resources */,
 				0BF84FC8294632A7004F044D /* Assets.xcassets in Resources */,
-				0BF84FC6294632A6004F044D /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -258,9 +313,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0BF84FC3294632A6004F044D /* ViewController.swift in Sources */,
 				0BF84FBF294632A6004F044D /* AppDelegate.swift in Sources */,
 				0BF84FC1294632A6004F044D /* SceneDelegate.swift in Sources */,
+				0BF84FF8294634A9004F044D /* FavoriteViewController.swift in Sources */,
+				0BF84FF429463349004F044D /* MainTabBarController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,14 +353,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		0BF84FC4294632A6004F044D /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				0BF84FC5294632A6004F044D /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		0BF84FC9294632A7004F044D /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -439,10 +487,9 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = N9YVL7C33K;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = PodCast/Info.plist;
+				INFOPLIST_FILE = PodCast/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -467,10 +514,9 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = N9YVL7C33K;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = PodCast/Info.plist;
+				INFOPLIST_FILE = PodCast/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
