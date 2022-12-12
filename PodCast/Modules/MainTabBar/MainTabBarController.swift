@@ -15,18 +15,20 @@ class MainTabBarController: UITabBarController {
         setupViews()
     }
     
-    func setupViews() {
+    fileprivate func setupViews() {
         tabBar.tintColor = .purple
+        UINavigationBar.appearance().prefersLargeTitles = true
         viewControllers = [
-            makeNavigationController(viewController: FavoriteViewController(), title: "Favorite", imageName: "favorites"),
-            makeNavigationController(viewController: UIViewController(), title: "Search", imageName: "search"),
-            makeNavigationController(viewController: UIViewController(), title: "Downloads", imageName: "downloads"),
+            makeNavigationController(with: PodcastSearchViewController(), title: "Search", imageName: "search"),
+            makeNavigationController(with: FavoriteViewController(), title: "Favorite", imageName: "favorites"),
+            makeNavigationController(with: UIViewController(), title: "Downloads", imageName: "downloads"),
         ]
     }
     
-    private func makeNavigationController(viewController: UIViewController, title: String, imageName: String) -> UINavigationController {
+    fileprivate func makeNavigationController(with viewController: UIViewController, title: String, imageName: String) -> UINavigationController {
         let navigationController = UINavigationController(rootViewController: viewController)
         navigationController.tabBarItem.title = title
+        viewController.navigationItem.title = title
         navigationController.tabBarItem.image = UIImage(named: imageName)?.withRenderingMode(.alwaysTemplate)
         return navigationController
     }
