@@ -18,6 +18,9 @@ class SearchViewModel {
     }
     
     func searchPodCast(keyword: String) {
+        guard keyword != "" else {
+            return
+        }
         itunesSearchRemoteAPI.executeSearch(keyWord: keyword) { response in
             switch response {
             case .success(let success):

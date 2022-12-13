@@ -16,9 +16,13 @@ class ItunesPodCastSearchRemoteAPI: SearchPodCastRemoteAPI {
     }
     
     func executeSearch(keyWord: String, completion: @escaping (Result<SearchResult, Error>) -> Void) {
-        var urlRequest = URLRequest(url: URL(string: "https://itunes.apple.com/search?term=\(keyWord)")!)
+        var url = URL(string: "https://itunes.apple.com/search")!
+        let queryParams: [URLQueryItem] = [
+            URLQueryItem(name: "term", value: keyWord)
+        ]
+        url.append(queryItems: queryParams)
+        var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = "GET"
-        
         networkManager.loadData(urlRequest) { response in
             switch response {
             case .success(let data):

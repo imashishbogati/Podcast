@@ -27,6 +27,7 @@ class PodcastSearchViewController: UITableViewController {
         super.viewDidLoad()
         setupViews()
         observeResults()
+        listenForSearchTextChange()
     }
     
     fileprivate func setupViews() {
@@ -44,7 +45,6 @@ class PodcastSearchViewController: UITableViewController {
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
         searchController.hidesNavigationBarDuringPresentation = false
-        searchController.searchBar.delegate = self
     }
     
     fileprivate func observeResults() {
@@ -53,6 +53,17 @@ class PodcastSearchViewController: UITableViewController {
                 self?.searchResults = results
                 self?.tableView.reloadData()
             }.store(in: &subscriptions)
+    }
+    
+    fileprivate func listenForSearchTextChange() {
+        let publisher = NotificationCenter.default.publisher(for: UISearchTextField.textDidChangeNotification, object: searchController.searchBar.searchTextField)
+        publisher.map {
+            ($0.object as! UISearchTextField).text
+        }
+        .debounce(for: .milliseconds(500), scheduler: RunLoop.main)
+        .sink { searchText in
+            self.viewModel.searchPodCast(keyword: searchText ?? "")
+        }.store(in: &subscriptions)
     }
 
 }
@@ -78,11 +89,4 @@ extension PodcastSearchViewController {
         return cell
     }
     
-}
-
-// MARK: - SearchBar
-extension PodcastSearchViewController: UISearchBarDelegate {
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        viewModel.searchPodCast(keyword: searchText)
-    }
 }
