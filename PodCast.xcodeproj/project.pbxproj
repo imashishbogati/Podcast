@@ -18,6 +18,15 @@
 		0BF84FF8294634A9004F044D /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF84FF7294634A9004F044D /* FavoriteViewController.swift */; };
 		0BF84FFC29463822004F044D /* PodcastSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF84FFB29463822004F044D /* PodcastSearchViewController.swift */; };
 		0BF850002946D162004F044D /* Podcast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF84FFF2946D162004F044D /* Podcast.swift */; };
+		0BF850032946D7B3004F044D /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF850022946D7B3004F044D /* NetworkManager.swift */; };
+		0BF850072946D7DC004F044D /* PodCastNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF850062946D7DC004F044D /* PodCastNetworkManager.swift */; };
+		0BF8500A2946D915004F044D /* RemoteAPIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF850092946D915004F044D /* RemoteAPIError.swift */; };
+		0BF8500D2946DA05004F044D /* SearchPodCastRemoteAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF8500C2946DA05004F044D /* SearchPodCastRemoteAPI.swift */; };
+		0BF850102946DA65004F044D /* ItunesPodCastSearchRemoteAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF8500F2946DA65004F044D /* ItunesPodCastSearchRemoteAPI.swift */; };
+		0BF850452947667E004F044D /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF850442947667E004F044D /* SearchViewModel.swift */; };
+		0BF85047294835A8004F044D /* SearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF85046294835A8004F044D /* SearchResult.swift */; };
+		0BF8504B29483C05004F044D /* PodCastDependencyContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF8504A29483C05004F044D /* PodCastDependencyContainer.swift */; };
+		0BF8505129484041004F044D /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 0BF8505029484041004F044D /* SDWebImage */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +62,14 @@
 		0BF84FF7294634A9004F044D /* FavoriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
 		0BF84FFB29463822004F044D /* PodcastSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastSearchViewController.swift; sourceTree = "<group>"; };
 		0BF84FFF2946D162004F044D /* Podcast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Podcast.swift; sourceTree = "<group>"; };
+		0BF850022946D7B3004F044D /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		0BF850062946D7DC004F044D /* PodCastNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodCastNetworkManager.swift; sourceTree = "<group>"; };
+		0BF850092946D915004F044D /* RemoteAPIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteAPIError.swift; sourceTree = "<group>"; };
+		0BF8500C2946DA05004F044D /* SearchPodCastRemoteAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPodCastRemoteAPI.swift; sourceTree = "<group>"; };
+		0BF8500F2946DA65004F044D /* ItunesPodCastSearchRemoteAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItunesPodCastSearchRemoteAPI.swift; sourceTree = "<group>"; };
+		0BF850442947667E004F044D /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
+		0BF85046294835A8004F044D /* SearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResult.swift; sourceTree = "<group>"; };
+		0BF8504A29483C05004F044D /* PodCastDependencyContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodCastDependencyContainer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +77,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0BF8505129484041004F044D /* SDWebImage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -103,8 +121,10 @@
 		0BF84FBD294632A6004F044D /* PodCast */ = {
 			isa = PBXGroup;
 			children = (
+				0BF8504929483BEE004F044D /* UILayer */,
+				0BF850012946D7A6004F044D /* Utilities */,
 				0BF84FF1294632F2004F044D /* Resources */,
-				0BF84FF0294632DE004F044D /* PodCastDataLayer */,
+				0BF84FF0294632DE004F044D /* DataLayer */,
 				0BF84FEF294632D9004F044D /* Modules */,
 				0BF84FEE294632D4004F044D /* Applications */,
 			);
@@ -147,12 +167,14 @@
 			path = Modules;
 			sourceTree = "<group>";
 		};
-		0BF84FF0294632DE004F044D /* PodCastDataLayer */ = {
+		0BF84FF0294632DE004F044D /* DataLayer */ = {
 			isa = PBXGroup;
 			children = (
+				0BF8500B2946D9EA004F044D /* PodCastSearch */,
+				0BF850082946D903004F044D /* Enums */,
 				0BF84FFE2946D14E004F044D /* Models */,
 			);
-			path = PodCastDataLayer;
+			path = DataLayer;
 			sourceTree = "<group>";
 		};
 		0BF84FF1294632F2004F044D /* Resources */ = {
@@ -192,6 +214,7 @@
 		0BF84FF929463817004F044D /* Search */ = {
 			isa = PBXGroup;
 			children = (
+				0BF8504329476672004F044D /* ViewModel */,
 				0BF84FFD2946D131004F044D /* Views */,
 				0BF84FFA2946381A004F044D /* Controller */,
 			);
@@ -217,8 +240,75 @@
 			isa = PBXGroup;
 			children = (
 				0BF84FFF2946D162004F044D /* Podcast.swift */,
+				0BF85046294835A8004F044D /* SearchResult.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		0BF850012946D7A6004F044D /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				0BF850042946D7BE004F044D /* NetworkManager */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		0BF850042946D7BE004F044D /* NetworkManager */ = {
+			isa = PBXGroup;
+			children = (
+				0BF850052946D7CD004F044D /* Implementations */,
+				0BF850022946D7B3004F044D /* NetworkManager.swift */,
+			);
+			path = NetworkManager;
+			sourceTree = "<group>";
+		};
+		0BF850052946D7CD004F044D /* Implementations */ = {
+			isa = PBXGroup;
+			children = (
+				0BF850062946D7DC004F044D /* PodCastNetworkManager.swift */,
+			);
+			path = Implementations;
+			sourceTree = "<group>";
+		};
+		0BF850082946D903004F044D /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				0BF850092946D915004F044D /* RemoteAPIError.swift */,
+			);
+			path = Enums;
+			sourceTree = "<group>";
+		};
+		0BF8500B2946D9EA004F044D /* PodCastSearch */ = {
+			isa = PBXGroup;
+			children = (
+				0BF8500E2946DA08004F044D /* Implementation */,
+				0BF8500C2946DA05004F044D /* SearchPodCastRemoteAPI.swift */,
+			);
+			path = PodCastSearch;
+			sourceTree = "<group>";
+		};
+		0BF8500E2946DA08004F044D /* Implementation */ = {
+			isa = PBXGroup;
+			children = (
+				0BF8500F2946DA65004F044D /* ItunesPodCastSearchRemoteAPI.swift */,
+			);
+			path = Implementation;
+			sourceTree = "<group>";
+		};
+		0BF8504329476672004F044D /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				0BF850442947667E004F044D /* SearchViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		0BF8504929483BEE004F044D /* UILayer */ = {
+			isa = PBXGroup;
+			children = (
+				0BF8504A29483C05004F044D /* PodCastDependencyContainer.swift */,
+			);
+			path = UILayer;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -237,6 +327,9 @@
 			dependencies = (
 			);
 			name = PodCast;
+			packageProductDependencies = (
+				0BF8505029484041004F044D /* SDWebImage */,
+			);
 			productName = PodCast;
 			productReference = 0BF84FBB294632A6004F044D /* PodCast.app */;
 			productType = "com.apple.product-type.application";
@@ -309,6 +402,9 @@
 				Base,
 			);
 			mainGroup = 0BF84FB2294632A6004F044D;
+			packageReferences = (
+				0BF8504F29484041004F044D /* XCRemoteSwiftPackageReference "SDWebImage" */,
+			);
 			productRefGroup = 0BF84FBC294632A6004F044D /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -351,11 +447,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0BF8500A2946D915004F044D /* RemoteAPIError.swift in Sources */,
 				0BF84FFC29463822004F044D /* PodcastSearchViewController.swift in Sources */,
+				0BF850072946D7DC004F044D /* PodCastNetworkManager.swift in Sources */,
 				0BF84FBF294632A6004F044D /* AppDelegate.swift in Sources */,
+				0BF8504B29483C05004F044D /* PodCastDependencyContainer.swift in Sources */,
 				0BF850002946D162004F044D /* Podcast.swift in Sources */,
+				0BF850032946D7B3004F044D /* NetworkManager.swift in Sources */,
+				0BF850452947667E004F044D /* SearchViewModel.swift in Sources */,
+				0BF85047294835A8004F044D /* SearchResult.swift in Sources */,
 				0BF84FC1294632A6004F044D /* SceneDelegate.swift in Sources */,
 				0BF84FF8294634A9004F044D /* FavoriteViewController.swift in Sources */,
+				0BF850102946DA65004F044D /* ItunesPodCastSearchRemoteAPI.swift in Sources */,
+				0BF8500D2946DA05004F044D /* SearchPodCastRemoteAPI.swift in Sources */,
 				0BF84FF429463349004F044D /* MainTabBarController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -688,6 +792,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		0BF8504F29484041004F044D /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImage.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		0BF8505029484041004F044D /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0BF8504F29484041004F044D /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 0BF84FB3294632A6004F044D /* Project object */;
 }

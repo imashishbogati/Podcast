@@ -6,22 +6,27 @@
 //
 
 import UIKit
+import Combine
+import SDWebImage
 
 class PodcastSearchViewController: UITableViewController {
     
     // MARK: - Properties
-    let podCasts = [
-        Podcast(name: "Let's Build That App", artistName: "Brain Voong"),
-        Podcast(name: "Let's Build That App", artistName: "Brain Voong")
-    ]
+    var searchResults: SearchResult?
     
     private let cellID = "podcast"
     
     private let searchController = UISearchController(searchResultsController: nil)
+    
+    private let viewModel = SearchViewModel(tunesSearchRemoteAPI: ItunesPodCastSearchRemoteAPI(networkManager: PodCastNetworkManager()))
+    
+    private var subscriptions = Set<AnyCancellable>()
+    
     // MARK: - Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
+        observeResults()
     }
     
     fileprivate func setupViews() {
@@ -41,6 +46,14 @@ class PodcastSearchViewController: UITableViewController {
         searchController.hidesNavigationBarDuringPresentation = false
         searchController.searchBar.delegate = self
     }
+    
+    fileprivate func observeResults() {
+        viewModel.$results.receive(on: DispatchQueue.main)
+            .sink { [weak self] results in
+                self?.searchResults = results
+                self?.tableView.reloadData()
+            }.store(in: &subscriptions)
+    }
 
 }
 
@@ -51,15 +64,16 @@ extension PodcastSearchViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return podCasts.count
+        return searchResults?.results.count ?? 0
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath)
-        let podCast = podCasts[indexPath.item]
+        let podCast = searchResults?.results[indexPath.item]
         cell.textLabel?.numberOfLines = 0
-        cell.textLabel?.text = "\(podCast.name)\n\(podCast.artistName)"
-        cell.imageView?.image = UIImage(named: "appicon")
+        cell.textLabel?.text = "\(podCast?.trackName ?? "")\n\(podCast?.artistName ?? "")"
+        cell.imageView?.sd_imageTransition = .fade
+        cell.imageView?.sd_setImage(with: URL(string: podCast?.artworkUrl100 ?? "")!, placeholderImage: UIImage(named: "appicon"))
         cell.backgroundColor = .clear
         return cell
     }
@@ -69,6 +83,6 @@ extension PodcastSearchViewController {
 // MARK: - SearchBar
 extension PodcastSearchViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        print(searchText)
+        viewModel.searchPodCast(keyword: searchText)
     }
 }
