@@ -19,7 +19,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
         window?.makeKeyAndVisible()
-        window?.rootViewController = MainTabBarController()
+        let dependencyInject = PodCastDependencyContainer()
+        window?.rootViewController = dependencyInject.makeMainTabBar()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

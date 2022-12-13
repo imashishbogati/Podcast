@@ -40,3 +40,7 @@ class SearchViewModel {
         }
     }
 }
+
+protocol SearchViewModelFactory {
+    func makeSearchViewModel() -> SearchViewModel
+}

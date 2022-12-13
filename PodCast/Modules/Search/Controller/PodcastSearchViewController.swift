@@ -7,7 +7,6 @@
 
 import UIKit
 import Combine
-import SDWebImage
 
 class PodcastSearchViewController: UITableViewController {
     
@@ -18,11 +17,23 @@ class PodcastSearchViewController: UITableViewController {
     
     private let searchController = UISearchController(searchResultsController: nil)
     lazy var loadingIndicator = UIActivityIndicatorView()
-    private let viewModel = SearchViewModel(tunesSearchRemoteAPI: ItunesPodCastSearchRemoteAPI(networkManager: PodCastNetworkManager()))
+    
+    typealias Factory = SearchViewModelFactory
+    var factory: Factory?
+    lazy var viewModel = factory?.makeSearchViewModel()
     
     private var subscriptions = Set<AnyCancellable>()
     
     // MARK: - Methods
+    init(style: UITableView.Style = .plain, factory: Factory ) {
+        self.factory = factory
+        super.init(style: style)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
@@ -57,7 +68,7 @@ class PodcastSearchViewController: UITableViewController {
     }
     
     fileprivate func observeResults() {
-        viewModel.$results.receive(on: DispatchQueue.main)
+        viewModel?.$results.receive(on: DispatchQueue.main)
             .sink { [weak self] results in
                 self?.searchResults = results
                 self?.tableView.reloadData()
@@ -65,7 +76,7 @@ class PodcastSearchViewController: UITableViewController {
     }
     
     fileprivate func observeLoadingState() {
-        viewModel.$showLoadingIndicator.receive(on: DispatchQueue.main)
+        viewModel?.$showLoadingIndicator.receive(on: DispatchQueue.main)
             .sink { [weak self] status in
                 if status == true {
                     self?.loadingIndicator.startAnimating()
@@ -82,7 +93,7 @@ class PodcastSearchViewController: UITableViewController {
         }
         .debounce(for: .milliseconds(500), scheduler: RunLoop.main)
         .sink { searchText in
-            self.viewModel.searchPodCast(keyword: searchText ?? "")
+            self.viewModel?.searchPodCast(keyword: searchText ?? "")
         }.store(in: &subscriptions)
     }
 
@@ -109,4 +120,8 @@ extension PodcastSearchViewController {
         return 108
     }
     
+}
+
+protocol PodCastSearchViewControllerFactory {
+    func makeSearchViewController() -> PodcastSearchViewController
 }

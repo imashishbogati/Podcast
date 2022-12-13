@@ -172,7 +172,7 @@
 		0BF84FF0294632DE004F044D /* DataLayer */ = {
 			isa = PBXGroup;
 			children = (
-				0BF8500B2946D9EA004F044D /* PodCastSearch */,
+				0BF8500B2946D9EA004F044D /* Search */,
 				0BF850082946D903004F044D /* Enums */,
 				0BF84FFE2946D14E004F044D /* Models */,
 			);
@@ -281,13 +281,13 @@
 			path = Enums;
 			sourceTree = "<group>";
 		};
-		0BF8500B2946D9EA004F044D /* PodCastSearch */ = {
+		0BF8500B2946D9EA004F044D /* Search */ = {
 			isa = PBXGroup;
 			children = (
 				0BF8500E2946DA08004F044D /* Implementation */,
 				0BF8500C2946DA05004F044D /* SearchPodCastRemoteAPI.swift */,
 			);
-			path = PodCastSearch;
+			path = Search;
 			sourceTree = "<group>";
 		};
 		0BF8500E2946DA08004F044D /* Implementation */ = {
