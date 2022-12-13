@@ -11,4 +11,6 @@ struct Podcast: Decodable {
     let trackName: String?
     let artistName: String?
     let artworkUrl100: String?
+    let trackCount: Int?
+    let kind: String?
 }

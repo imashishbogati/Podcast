@@ -27,6 +27,7 @@
 		0BF85047294835A8004F044D /* SearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF85046294835A8004F044D /* SearchResult.swift */; };
 		0BF8504B29483C05004F044D /* PodCastDependencyContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF8504A29483C05004F044D /* PodCastDependencyContainer.swift */; };
 		0BF8505129484041004F044D /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 0BF8505029484041004F044D /* SDWebImage */; };
+		0BF8505429487585004F044D /* PodCastListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF8505329487585004F044D /* PodCastListTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +71,7 @@
 		0BF850442947667E004F044D /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		0BF85046294835A8004F044D /* SearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResult.swift; sourceTree = "<group>"; };
 		0BF8504A29483C05004F044D /* PodCastDependencyContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodCastDependencyContainer.swift; sourceTree = "<group>"; };
+		0BF8505329487585004F044D /* PodCastListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodCastListTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -232,6 +234,7 @@
 		0BF84FFD2946D131004F044D /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				0BF8505229487566004F044D /* Cells */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -309,6 +312,14 @@
 				0BF8504A29483C05004F044D /* PodCastDependencyContainer.swift */,
 			);
 			path = UILayer;
+			sourceTree = "<group>";
+		};
+		0BF8505229487566004F044D /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				0BF8505329487585004F044D /* PodCastListTableViewCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -451,6 +462,7 @@
 				0BF84FFC29463822004F044D /* PodcastSearchViewController.swift in Sources */,
 				0BF850072946D7DC004F044D /* PodCastNetworkManager.swift in Sources */,
 				0BF84FBF294632A6004F044D /* AppDelegate.swift in Sources */,
+				0BF8505429487585004F044D /* PodCastListTableViewCell.swift in Sources */,
 				0BF8504B29483C05004F044D /* PodCastDependencyContainer.swift in Sources */,
 				0BF850002946D162004F044D /* Podcast.swift in Sources */,
 				0BF850032946D7B3004F044D /* NetworkManager.swift in Sources */,

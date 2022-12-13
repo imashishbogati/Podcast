@@ -17,7 +17,7 @@ class PodcastSearchViewController: UITableViewController {
     private let cellID = "podcast"
     
     private let searchController = UISearchController(searchResultsController: nil)
-    
+    lazy var loadingIndicator = UIActivityIndicatorView()
     private let viewModel = SearchViewModel(tunesSearchRemoteAPI: ItunesPodCastSearchRemoteAPI(networkManager: PodCastNetworkManager()))
     
     private var subscriptions = Set<AnyCancellable>()
@@ -28,17 +28,26 @@ class PodcastSearchViewController: UITableViewController {
         setupViews()
         observeResults()
         listenForSearchTextChange()
+        observeLoadingState()
     }
     
     fileprivate func setupViews() {
         view.backgroundColor = .secondarySystemBackground
         setupTableView()
         setupSearchController()
+        tableView.addSubview(loadingIndicator)
+        loadingIndicator.style = .medium
+        loadingIndicator.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            loadingIndicator.centerXAnchor.constraint(equalTo: tableView.centerXAnchor),
+            loadingIndicator.centerYAnchor.constraint(equalTo: tableView.centerYAnchor, constant: -150),
+        ])
     }
     
     fileprivate func setupTableView() {
         tableView.backgroundColor = .secondarySystemBackground
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellID)
+        tableView.separatorStyle = .none
+        tableView.register(PodCastListTableViewCell.self, forCellReuseIdentifier: cellID)
     }
     
     fileprivate func setupSearchController() {
@@ -52,6 +61,17 @@ class PodcastSearchViewController: UITableViewController {
             .sink { [weak self] results in
                 self?.searchResults = results
                 self?.tableView.reloadData()
+            }.store(in: &subscriptions)
+    }
+    
+    fileprivate func observeLoadingState() {
+        viewModel.$showLoadingIndicator.receive(on: DispatchQueue.main)
+            .sink { [weak self] status in
+                if status == true {
+                    self?.loadingIndicator.startAnimating()
+                } else {
+                    self?.loadingIndicator.stopAnimating()
+                }
             }.store(in: &subscriptions)
     }
     
@@ -79,14 +99,14 @@ extension PodcastSearchViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! PodCastListTableViewCell
         let podCast = searchResults?.results[indexPath.item]
-        cell.textLabel?.numberOfLines = 0
-        cell.textLabel?.text = "\(podCast?.trackName ?? "")\n\(podCast?.artistName ?? "")"
-        cell.imageView?.sd_imageTransition = .fade
-        cell.imageView?.sd_setImage(with: URL(string: podCast?.artworkUrl100 ?? "")!, placeholderImage: UIImage(named: "appicon"))
-        cell.backgroundColor = .clear
+        cell.configureCellData(podCast!)
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 108
     }
     
 }

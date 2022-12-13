@@ -10,18 +10,27 @@ import Combine
 
 class SearchViewModel {
     
-    @Published var results: SearchResult?
+    // MARK: - Properties
     var itunesSearchRemoteAPI: SearchPodCastRemoteAPI
+    @Published var results: SearchResult?
+    @Published var showLoadingIndicator: Bool = false
     
+    // MARK: - Methods
     init(tunesSearchRemoteAPI: SearchPodCastRemoteAPI) {
         self.itunesSearchRemoteAPI = tunesSearchRemoteAPI
     }
     
     func searchPodCast(keyword: String) {
+        showLoadingIndicator = true
+        
         guard keyword != "" else {
+            results = nil
+            showLoadingIndicator = false
             return
         }
+        
         itunesSearchRemoteAPI.executeSearch(keyWord: keyword) { response in
+            self.showLoadingIndicator = false
             switch response {
             case .success(let success):
                 self.results = success
