@@ -23,6 +23,12 @@ class PodCastDependencyContainer {
     func makeSearchPodCastRemoteAPI() -> SearchPodCastRemoteAPI {
         return ItunesPodCastSearchRemoteAPI(networkManager: makeNetworkManager())
     }
+    
+    // MARK: - EpisodeRemoteAPI
+    func makeEpisodeRemoteAPI() -> EpisodeRemoteAPI {
+        return ItunesEpisodeRemoteAPI()
+    }
+    
 }
 
 // MARK: - Search Podcast
@@ -35,5 +41,18 @@ extension PodCastDependencyContainer: PodCastSearchViewControllerFactory {
 extension PodCastDependencyContainer: SearchViewModelFactory {
     func makeSearchViewModel() -> SearchViewModel {
         return SearchViewModel(tunesSearchRemoteAPI: makeSearchPodCastRemoteAPI())
+    }
+}
+
+// MARK: - Episodes
+extension PodCastDependencyContainer: EpisodeViewControllerFactory {
+    func makeEpisodeViewController(podCast: Podcast) -> EpisodeViewController {
+        return EpisodeViewController(podCast: podCast, factory: self)
+    }
+}
+
+extension PodCastDependencyContainer: EpisodeViewModelFactory {
+    func makeEpisodeViewModel(podCast: Podcast) -> EpisodeViewModel {
+        return EpisodeViewModel(itunesEpisodeRemoteAPI: makeEpisodeRemoteAPI(), podCast: podCast)
     }
 }

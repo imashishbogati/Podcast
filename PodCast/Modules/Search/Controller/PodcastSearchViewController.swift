@@ -18,7 +18,7 @@ class PodcastSearchViewController: UITableViewController {
     private let searchController = UISearchController(searchResultsController: nil)
     lazy var loadingIndicator = UIActivityIndicatorView()
     
-    typealias Factory = SearchViewModelFactory
+    typealias Factory = SearchViewModelFactory & EpisodeViewControllerFactory
     var factory: Factory?
     lazy var viewModel = factory?.makeSearchViewModel()
     
@@ -64,7 +64,7 @@ class PodcastSearchViewController: UITableViewController {
     fileprivate func setupSearchController() {
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
-        searchController.hidesNavigationBarDuringPresentation = false
+        searchController.definesPresentationContext = true
     }
     
     fileprivate func observeResults() {
@@ -118,6 +118,12 @@ extension PodcastSearchViewController {
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 108
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let podCast = searchResults?.results[indexPath.item]
+        let episodeVC = factory?.makeEpisodeViewController(podCast: podCast!)
+        self.navigationController?.pushViewController(episodeVC!, animated: true)
     }
     
 }
