@@ -34,7 +34,6 @@ class MainTabBarController: UITabBarController {
     
     fileprivate func setupViews() {
         tabBar.tintColor = .purple
-        UINavigationBar.appearance().prefersLargeTitles = true
         viewControllers = [
             makeNavigationController(with: podCastSearchController, title: "Search", imageName: "search"),
             makeNavigationController(with: FavoriteViewController(), title: "Favorite", imageName: "favorites"),

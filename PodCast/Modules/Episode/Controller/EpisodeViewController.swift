@@ -16,7 +16,7 @@ class EpisodeViewController: UITableViewController {
     fileprivate var episodes: [Episode] = []
     private var subscriptions = Set<AnyCancellable>()
     
-    typealias Factory = EpisodeViewModelFactory
+    typealias Factory = EpisodeViewModelFactory & PlayerViewFactory
     var factory: Factory
     
     lazy var viewModel = factory.makeEpisodeViewModel(podCast: podCast!)
@@ -101,12 +101,28 @@ extension EpisodeViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! EpisodeListTableViewCell
         let episode = episodes[indexPath.item]
-        cell.trackNameLabel.text = episode.title ?? "No title"
+        cell.selectionStyle = .none
+        cell.configureCell(episode: episode, image: podCast?.artworkUrl100 ?? "")
         return cell
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 108
+        return 115
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        var episode = episodes[indexPath.item]
+        let window = UIApplication
+            .shared
+            .connectedScenes
+            .flatMap { ($0 as? UIWindowScene)?.windows ?? [] }
+            .first { $0.isKeyWindow }
+        if episode.image == nil {
+            episode.image = podCast?.artworkUrl100
+        }
+        let playerView = factory.makePlayerView(episode: episode)
+        playerView.frame = tableView.frame
+        window?.addSubview(playerView)
     }
     
 }

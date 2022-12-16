@@ -36,6 +36,9 @@
 		0BF850A3294A0BAD004F044D /* EpisodeRemoteAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF850A2294A0BAD004F044D /* EpisodeRemoteAPI.swift */; };
 		0BF850A6294A0C26004F044D /* ItunesEpisodeRemoteAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF850A5294A0C26004F044D /* ItunesEpisodeRemoteAPI.swift */; };
 		0BF850A9294A206D004F044D /* EpisodeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF850A8294A206D004F044D /* EpisodeViewModel.swift */; };
+		0BF850AC294AFEE2004F044D /* UIString+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF850AB294AFEE2004F044D /* UIString+extensions.swift */; };
+		0BF850AF294B0818004F044D /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF850AE294B0818004F044D /* PlayerView.swift */; };
+		0BF850B3294B31E7004F044D /* PlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF850B2294B31E7004F044D /* PlayerViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,6 +89,9 @@
 		0BF850A2294A0BAD004F044D /* EpisodeRemoteAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeRemoteAPI.swift; sourceTree = "<group>"; };
 		0BF850A5294A0C26004F044D /* ItunesEpisodeRemoteAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItunesEpisodeRemoteAPI.swift; sourceTree = "<group>"; };
 		0BF850A8294A206D004F044D /* EpisodeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeViewModel.swift; sourceTree = "<group>"; };
+		0BF850AB294AFEE2004F044D /* UIString+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIString+extensions.swift"; sourceTree = "<group>"; };
+		0BF850AE294B0818004F044D /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
+		0BF850B2294B31E7004F044D /* PlayerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -178,6 +184,7 @@
 		0BF84FEF294632D9004F044D /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				0BF850AD294B080D004F044D /* Player */,
 				0BF850552948D214004F044D /* Episode */,
 				0BF84FF929463817004F044D /* Search */,
 				0BF84FF529463499004F044D /* Favorites */,
@@ -270,6 +277,7 @@
 		0BF850012946D7A6004F044D /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				0BF850AA294AFED4004F044D /* Extensions */,
 				0BF850042946D7BE004F044D /* NetworkManager */,
 			);
 			path = Utilities;
@@ -396,6 +404,39 @@
 			isa = PBXGroup;
 			children = (
 				0BF850A8294A206D004F044D /* EpisodeViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		0BF850AA294AFED4004F044D /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				0BF850AB294AFEE2004F044D /* UIString+extensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		0BF850AD294B080D004F044D /* Player */ = {
+			isa = PBXGroup;
+			children = (
+				0BF850B1294B31DD004F044D /* ViewModel */,
+				0BF850B0294B2A3F004F044D /* Views */,
+				0BF850AE294B0818004F044D /* PlayerView.swift */,
+			);
+			path = Player;
+			sourceTree = "<group>";
+		};
+		0BF850B0294B2A3F004F044D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		0BF850B1294B31DD004F044D /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				0BF850B2294B31E7004F044D /* PlayerViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -548,6 +589,8 @@
 				0BF8505429487585004F044D /* PodCastListTableViewCell.swift in Sources */,
 				0BF8504B29483C05004F044D /* PodCastDependencyContainer.swift in Sources */,
 				0BF850002946D162004F044D /* Podcast.swift in Sources */,
+				0BF850AC294AFEE2004F044D /* UIString+extensions.swift in Sources */,
+				0BF850B3294B31E7004F044D /* PlayerViewModel.swift in Sources */,
 				0BF850A1294A0B70004F044D /* Episode.swift in Sources */,
 				0BF850982949F2B1004F044D /* EpisodeListTableViewCell.swift in Sources */,
 				0BF850032946D7B3004F044D /* NetworkManager.swift in Sources */,
@@ -558,6 +601,7 @@
 				0BF850102946DA65004F044D /* ItunesPodCastSearchRemoteAPI.swift in Sources */,
 				0BF850A9294A206D004F044D /* EpisodeViewModel.swift in Sources */,
 				0BF8500D2946DA05004F044D /* SearchPodCastRemoteAPI.swift in Sources */,
+				0BF850AF294B0818004F044D /* PlayerView.swift in Sources */,
 				0BF850582948D234004F044D /* EpisodeViewController.swift in Sources */,
 				0BF850A6294A0C26004F044D /* ItunesEpisodeRemoteAPI.swift in Sources */,
 				0BF84FF429463349004F044D /* MainTabBarController.swift in Sources */,
@@ -734,8 +778,7 @@
 				INFOPLIST_FILE = PodCast/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -761,8 +804,7 @@
 				INFOPLIST_FILE = PodCast/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

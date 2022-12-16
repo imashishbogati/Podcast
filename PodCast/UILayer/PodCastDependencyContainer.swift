@@ -56,3 +56,10 @@ extension PodCastDependencyContainer: EpisodeViewModelFactory {
         return EpisodeViewModel(itunesEpisodeRemoteAPI: makeEpisodeRemoteAPI(), podCast: podCast)
     }
 }
+
+// MARK: - Player View
+extension PodCastDependencyContainer: PlayerViewFactory {
+    func makePlayerView(episode: Episode) -> PlayerView {
+        return PlayerView(episode: episode)
+    }
+}

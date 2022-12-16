@@ -111,6 +111,7 @@ extension PodcastSearchViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! PodCastListTableViewCell
+        cell.selectionStyle = .none
         let podCast = searchResults?.results[indexPath.item]
         cell.configureCellData(podCast!)
         return cell

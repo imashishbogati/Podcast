@@ -25,7 +25,7 @@ class ItunesEpisodeRemoteAPI: EpisodeRemoteAPI {
                 case let .rss(feed):
                     var episodes: [Episode] = []
                     feed.items?.forEach({ feedItem in
-                        let episode = Episode(title: feedItem.title, lastBuildDate: "\(String(describing: feedItem.pubDate))", image: "")
+                        let episode = Episode(feedItem: feedItem)
                         episodes.append(episode)
                     })
                     completion(.success(episodes))
