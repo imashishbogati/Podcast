@@ -19,17 +19,25 @@ class AudioSliderViewModel {
     @Published var currentBufferValue: Float = 0.0
     @Published var currentSliderValue: Float = 0.0
     
-    fileprivate var avPlayer: AVPlayer
+    fileprivate var player: AVPlayer
+    fileprivate var timeObserverToken: Any?
     
     // MARK: - Methods
     init(avPlayer: AVPlayer) {
-        self.avPlayer = avPlayer
+        self.player = avPlayer
         observeCurrentPlayingTime()
+    }
+    
+    deinit {
+        if let timeObserverToken = timeObserverToken {
+            player.removeTimeObserver(timeObserverToken)
+            self.timeObserverToken = nil
+        }
     }
     
     func handleSliderValueChange(_ value: Float) {
         let percentage = value
-        guard let duration = avPlayer.currentItem?.duration else {
+        guard let duration = player.currentItem?.duration else {
             return
         }
         let durationInSeconds = CMTimeGetSeconds(duration)
@@ -37,33 +45,32 @@ class AudioSliderViewModel {
         
         let seekTime = CMTimeMakeWithSeconds(seekTimeInSeconds, preferredTimescale: Int32(NSEC_PER_SEC))
         
-        avPlayer.seek(to: seekTime)
+        player.seek(to: seekTime)
         
     }
     
     fileprivate func observeCurrentPlayingTime() {
         let interval = CMTimeMake(value: 1, timescale: 2)
-        avPlayer.addPeriodicTimeObserver(forInterval: interval, queue: .main) { time in
-                self.currentPlayingTime = time.toDisplayString()
-                self.totalTimeValue = (self.avPlayer.currentItem?.duration.toDisplayString())!
-                self.updateCurrentTimeSlider()
-                self.updateDownloadProgress()
-            
+        timeObserverToken = player.addPeriodicTimeObserver(forInterval: interval, queue: .main) { [weak self] time in
+                self?.currentPlayingTime = time.toDisplayString()
+                self?.totalTimeValue = (self?.player.currentItem?.duration.toDisplayString())!
+                self?.updateCurrentTimeSlider()
+                self?.updateDownloadProgress()
         }
     }
     
     fileprivate func updateCurrentTimeSlider() {
-        let currentTimeSeconds = CMTimeGetSeconds(self.avPlayer.currentTime())
-        let durationsSeconds = CMTimeGetSeconds(self.avPlayer.currentItem!.duration)
+        let currentTimeSeconds = CMTimeGetSeconds(self.player.currentTime())
+        let durationsSeconds = CMTimeGetSeconds(self.player.currentItem!.duration)
         let percentage = currentTimeSeconds / durationsSeconds
         currentPlayingTimeSlider = Float(percentage)
     }
     
     fileprivate func updateDownloadProgress() {
-        if let range = self.avPlayer.currentItem?.loadedTimeRanges.first {
+        if let range = self.player.currentItem?.loadedTimeRanges.first {
             let time = CMTimeRangeGetEnd(range.timeRangeValue)
             let currentTimeSeconds = CMTimeGetSeconds(time)
-            let durationsSeconds = CMTimeGetSeconds(self.avPlayer.currentItem!.duration)
+            let durationsSeconds = CMTimeGetSeconds(self.player.currentItem!.duration)
             let percentage = currentTimeSeconds / durationsSeconds
             currentBufferValue = Float(percentage)
         }
