@@ -49,11 +49,11 @@ class EpisodeViewController: UITableViewController {
         navigationController?.navigationBar.prefersLargeTitles = false
         tableView.addSubview(loadingIndicator)
         loadingIndicator.style = .medium
-        loadingIndicator.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            loadingIndicator.centerXAnchor.constraint(equalTo: tableView.centerXAnchor),
-            loadingIndicator.centerYAnchor.constraint(equalTo: tableView.centerYAnchor, constant: -50),
-        ])
+        
+        loadingIndicator.snp.makeConstraints { make in
+            make.centerX.equalTo(tableView.snp.centerX)
+            make.centerY.equalTo(tableView.snp.centerY).offset(-50)
+        }
     }
     
     fileprivate func setupTableView() {

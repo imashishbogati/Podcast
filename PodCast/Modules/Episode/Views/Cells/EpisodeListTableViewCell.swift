@@ -7,13 +7,13 @@
 
 import UIKit
 import SDWebImage
+import SnapKit
 
 class EpisodeListTableViewCell: UITableViewCell {
     
     // MARK: - Properties
     let podCastImage: UIImageView = {
         let image = UIImageView()
-        image.translatesAutoresizingMaskIntoConstraints = false
         image.layer.cornerRadius = 3
         image.contentMode = .scaleAspectFit
         return image
@@ -24,7 +24,6 @@ class EpisodeListTableViewCell: UITableViewCell {
         label.textColor = .purple
         label.font = .systemFont(ofSize: 11, weight: .medium)
         label.numberOfLines = 1
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
@@ -32,7 +31,6 @@ class EpisodeListTableViewCell: UITableViewCell {
         let label = UILabel()
         label.font = .systemFont(ofSize: 14, weight: .bold)
         label.numberOfLines = 3
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .label
         return label
     }()
@@ -42,7 +40,6 @@ class EpisodeListTableViewCell: UITableViewCell {
         label.font = .systemFont(ofSize: 14, weight: .medium)
         label.textColor = .secondaryLabel
         label.numberOfLines = 3
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
@@ -61,27 +58,33 @@ class EpisodeListTableViewCell: UITableViewCell {
         addSubview(weekDayLabel)
         addSubview(trackNameLabel)
         addSubview(descriptionLabel)
-
-        NSLayoutConstraint.activate([
-            podCastImage.topAnchor.constraint(equalTo: topAnchor, constant: 8),
-            podCastImage.leadingAnchor.constraint(equalTo: leadingAnchor,constant: 16),
-            podCastImage.heightAnchor.constraint(equalToConstant: 100),
-            podCastImage.widthAnchor.constraint(equalToConstant: 100),
-            podCastImage.trailingAnchor.constraint(equalTo: weekDayLabel.leadingAnchor, constant: -12),
-            
-            weekDayLabel.topAnchor.constraint(equalTo: podCastImage.topAnchor),
-            weekDayLabel.leadingAnchor.constraint(equalTo: podCastImage.trailingAnchor, constant: 12),
-            weekDayLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12),
-            
-            trackNameLabel.topAnchor.constraint(equalTo: weekDayLabel.bottomAnchor, constant: 4),
-            trackNameLabel.leadingAnchor.constraint(equalTo: podCastImage.trailingAnchor, constant: 12),
-            trackNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12),
-            
-            descriptionLabel.topAnchor.constraint(equalTo: trackNameLabel.bottomAnchor, constant: 2),
-            descriptionLabel.leadingAnchor.constraint(equalTo: podCastImage.trailingAnchor, constant: 12),
-            descriptionLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12),
-            descriptionLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10)
-        ])
+        
+        podCastImage.snp.makeConstraints { make in
+            make.top.equalTo(self).offset(8)
+            make.leading.equalTo(self).offset(16)
+            make.height.equalTo(100)
+            make.width.equalTo(100)
+            make.trailing.equalTo(weekDayLabel.snp.leading).offset(-12)
+        }
+        
+        weekDayLabel.snp.makeConstraints { make in
+            make.top.equalTo(podCastImage.snp.top)
+            make.trailing.equalTo(self).offset(-12)
+            make.leading.equalTo(podCastImage.snp.trailing).offset(12)
+        }
+        
+        trackNameLabel.snp.makeConstraints { make in
+            make.top.equalTo(weekDayLabel.snp.bottom)
+            make.trailing.equalTo(self).offset(-12)
+            make.leading.equalTo(podCastImage.snp.trailing).offset(12)
+        }
+        
+        descriptionLabel.snp.makeConstraints { make in
+            make.top.equalTo(trackNameLabel.snp.bottom)
+            make.bottom.equalTo(self).offset(-10)
+            make.trailing.equalTo(self).offset(-12)
+            make.leading.equalTo(podCastImage.snp.trailing).offset(12)
+        }
     }
     
     func configureCell(episode: Episode, image: String) {
