@@ -9,7 +9,7 @@ import UIKit
 
 class MainTabBarController: UITabBarController {
     
-    // MARK: - proprties
+    // MARK: - Properties
     typealias Factory = PodCastSearchViewControllerFactory
     
     var factory: Factory?

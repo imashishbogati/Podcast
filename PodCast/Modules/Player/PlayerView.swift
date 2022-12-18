@@ -64,7 +64,7 @@ class PlayerView: UIView {
     
     lazy var audioSliderView = AudioSliderView(viewModel: AudioSliderViewModel(avPlayer: playerViewModel.avPlayer))
     lazy var playerControl = PlayerControlView(viewModel: PlayerControlViewModel(avPlayer: playerViewModel.avPlayer))
-    let soundControl = SoundControlView()
+    lazy var soundControl = SoundControlView(viewModel: SoundControlViewModel(avPlayer: playerViewModel.avPlayer))
     let playerViewModel = PlayerViewModel()
     
     // MARK: - Methods

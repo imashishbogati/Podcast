@@ -14,6 +14,7 @@
 		0B6F596D294C672E00D05C2A /* CMTime+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6F596C294C672E00D05C2A /* CMTime+Extensions.swift */; };
 		0BB7BC69294F12FB006D560E /* AudioSliderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB7BC68294F12FB006D560E /* AudioSliderViewModel.swift */; };
 		0BB7BC6B294F1542006D560E /* PlayerControlViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB7BC6A294F1542006D560E /* PlayerControlViewModel.swift */; };
+		0BB7BC6D294F2548006D560E /* SoundControlViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB7BC6C294F2548006D560E /* SoundControlViewModel.swift */; };
 		0BF84FBF294632A6004F044D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF84FBE294632A6004F044D /* AppDelegate.swift */; };
 		0BF84FC1294632A6004F044D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF84FC0294632A6004F044D /* SceneDelegate.swift */; };
 		0BF84FC8294632A7004F044D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0BF84FC7294632A7004F044D /* Assets.xcassets */; };
@@ -72,6 +73,7 @@
 		0B6F596C294C672E00D05C2A /* CMTime+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CMTime+Extensions.swift"; sourceTree = "<group>"; };
 		0BB7BC68294F12FB006D560E /* AudioSliderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioSliderViewModel.swift; sourceTree = "<group>"; };
 		0BB7BC6A294F1542006D560E /* PlayerControlViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerControlViewModel.swift; sourceTree = "<group>"; };
+		0BB7BC6C294F2548006D560E /* SoundControlViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundControlViewModel.swift; sourceTree = "<group>"; };
 		0BF84FBB294632A6004F044D /* PodCast.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PodCast.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BF84FBE294632A6004F044D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0BF84FC0294632A6004F044D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -457,6 +459,7 @@
 				0BF850B2294B31E7004F044D /* PlayerViewModel.swift */,
 				0BB7BC68294F12FB006D560E /* AudioSliderViewModel.swift */,
 				0BB7BC6A294F1542006D560E /* PlayerControlViewModel.swift */,
+				0BB7BC6C294F2548006D560E /* SoundControlViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -612,6 +615,7 @@
 				0BF8505429487585004F044D /* PodCastListTableViewCell.swift in Sources */,
 				0BB7BC6B294F1542006D560E /* PlayerControlViewModel.swift in Sources */,
 				0BF8504B29483C05004F044D /* PodCastDependencyContainer.swift in Sources */,
+				0BB7BC6D294F2548006D560E /* SoundControlViewModel.swift in Sources */,
 				0B6F596D294C672E00D05C2A /* CMTime+Extensions.swift in Sources */,
 				0BF850002946D162004F044D /* Podcast.swift in Sources */,
 				0BF850AC294AFEE2004F044D /* UIString+extensions.swift in Sources */,

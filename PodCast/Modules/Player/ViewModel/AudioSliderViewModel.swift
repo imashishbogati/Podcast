@@ -11,7 +11,8 @@ import Combine
 
 class AudioSliderViewModel {
     
-    @Published var isEnlargeEpisode: Bool = false
+    // MARK: - Properties
+    
     @Published var currentPlayingTime: String = "00:00"
     @Published var totalTimeValue: String = "00:00"
     @Published var currentPlayingTimeSlider: Float = 0.0
@@ -20,9 +21,9 @@ class AudioSliderViewModel {
     
     fileprivate var avPlayer: AVPlayer
     
+    // MARK: - Methods
     init(avPlayer: AVPlayer) {
         self.avPlayer = avPlayer
-        checkForAudioStartPlaying()
         observeCurrentPlayingTime()
     }
     
@@ -35,26 +36,18 @@ class AudioSliderViewModel {
         let seekTimeInSeconds = Float64(percentage) * durationInSeconds
         
         let seekTime = CMTimeMakeWithSeconds(seekTimeInSeconds, preferredTimescale: Int32(NSEC_PER_SEC))
+        
         avPlayer.seek(to: seekTime)
-    }
-    
-    fileprivate func checkForAudioStartPlaying() {
-        let time = CMTimeMake(value: 1, timescale: 3)
-        let times = [NSValue(time: time)]
-        avPlayer.addBoundaryTimeObserver(forTimes: times, queue: .main) {
-            self.isEnlargeEpisode = true
-        }
+        
     }
     
     fileprivate func observeCurrentPlayingTime() {
         let interval = CMTimeMake(value: 1, timescale: 2)
         avPlayer.addPeriodicTimeObserver(forInterval: interval, queue: .main) { time in
-            if self.avPlayer.timeControlStatus == .playing {
                 self.currentPlayingTime = time.toDisplayString()
                 self.totalTimeValue = (self.avPlayer.currentItem?.duration.toDisplayString())!
                 self.updateCurrentTimeSlider()
                 self.updateDownloadProgress()
-            }
             
         }
     }

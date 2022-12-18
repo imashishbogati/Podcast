@@ -34,12 +34,16 @@ class SoundControlView: UIView {
     
     let volumeSlider: UISlider = {
         let slider = UISlider()
+        slider.value = 1
         return slider
     }()
-
+    
+    fileprivate var viewModel: SoundControlViewModel
+    
     
     // MARK: - Methods
-    override init(frame: CGRect) {
+    init(frame: CGRect = .zero, viewModel: SoundControlViewModel) {
+        self.viewModel = viewModel
         super.init(frame: frame)
         setupViews()
     }
@@ -50,6 +54,7 @@ class SoundControlView: UIView {
     
     // MARK: - SetupViews
     fileprivate func setupViews() {
+        volumeSlider.addTarget(self, action: #selector(handleVolumeValueChanged), for: .valueChanged)
         addSubview(volumeControlStackView)
         
         volumeControlStackView.addArrangedSubview(muteButton)
@@ -59,5 +64,11 @@ class SoundControlView: UIView {
         volumeControlStackView.snp.makeConstraints { make in
             make.top.leading.trailing.bottom.equalTo(self)
         }
+    }
+    
+    // MARK: - Actions
+    @objc
+    func handleVolumeValueChanged(_ sender: UISlider) {
+        viewModel.volume = sender.value
     }
 }

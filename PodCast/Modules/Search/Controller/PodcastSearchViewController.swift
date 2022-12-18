@@ -11,7 +11,7 @@ import Combine
 class PodcastSearchViewController: UITableViewController {
     
     // MARK: - Properties
-    var searchResults: SearchResult?
+    fileprivate var searchResults: SearchResult?
     
     private let cellID = "podcast"
     
