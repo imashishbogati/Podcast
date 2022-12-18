@@ -13,7 +13,6 @@ class PodCastListTableViewCell: UITableViewCell {
     // MARK: - Properties
     let podCastImage: UIImageView = {
         let image = UIImageView()
-        image.translatesAutoresizingMaskIntoConstraints = false
         image.layer.cornerRadius = 3
         image.contentMode = .scaleAspectFit
         return image
@@ -23,7 +22,6 @@ class PodCastListTableViewCell: UITableViewCell {
         let label = UILabel()
         label.font = .systemFont(ofSize: 14, weight: .bold)
         label.numberOfLines = 3
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .label
         return label
     }()
@@ -31,7 +29,6 @@ class PodCastListTableViewCell: UITableViewCell {
     let artistNameLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 12, weight: .medium)
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .label
         return label
     }()
@@ -40,7 +37,6 @@ class PodCastListTableViewCell: UITableViewCell {
     let episodeCountLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 12, weight: .regular)
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .secondaryLabel
         label.text = "Episode Count"
         return label
@@ -61,26 +57,31 @@ class PodCastListTableViewCell: UITableViewCell {
         addSubview(trackNameLabel)
         addSubview(artistNameLabel)
         addSubview(episodeCountLabel)
-
-        NSLayoutConstraint.activate([
-            podCastImage.topAnchor.constraint(equalTo: topAnchor, constant: 8),
-            podCastImage.leadingAnchor.constraint(equalTo: leadingAnchor,constant: 16),
-            podCastImage.heightAnchor.constraint(equalToConstant: 100),
-            podCastImage.widthAnchor.constraint(equalToConstant: 100),
-
-            
-            trackNameLabel.topAnchor.constraint(equalTo: podCastImage.topAnchor),
-            trackNameLabel.leadingAnchor.constraint(equalTo: podCastImage.trailingAnchor, constant: 12),
-            trackNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12),
-            
-            artistNameLabel.topAnchor.constraint(equalTo: trackNameLabel.bottomAnchor, constant: 2),
-            artistNameLabel.leadingAnchor.constraint(equalTo: trackNameLabel.leadingAnchor),
-            artistNameLabel.trailingAnchor.constraint(equalTo: trackNameLabel.trailingAnchor),
-            
-            episodeCountLabel.topAnchor.constraint(equalTo: artistNameLabel.bottomAnchor, constant: 5),
-            episodeCountLabel.leadingAnchor.constraint(equalTo: trackNameLabel.leadingAnchor),
-            episodeCountLabel.trailingAnchor.constraint(equalTo: trackNameLabel.trailingAnchor),
-        ])
+        
+        podCastImage.snp.makeConstraints { make in
+            make.top.equalTo(self).offset(8)
+            make.leading.equalTo(self).offset(16)
+            make.height.equalTo(100)
+            make.width.equalTo(100)
+        }
+        
+        trackNameLabel.snp.makeConstraints { make in
+            make.top.equalTo(podCastImage.snp.top)
+            make.leading.equalTo(podCastImage.snp.trailing).offset(12)
+            make.trailing.equalTo(self).offset(-12)
+        }
+        
+        artistNameLabel.snp.makeConstraints { make in
+            make.top.equalTo(trackNameLabel.snp.bottom).offset(2)
+            make.leading.equalTo(trackNameLabel.snp.leading)
+            make.trailing.equalTo(trackNameLabel.snp.trailing)
+        }
+        
+        episodeCountLabel.snp.makeConstraints { make in
+            make.top.equalTo(artistNameLabel.snp.bottom).offset(5)
+            make.leading.equalTo(trackNameLabel.snp.leading)
+            make.trailing.equalTo(trackNameLabel.snp.trailing)
+        }
     }
     
     func configureCellData(_ podCast: Podcast) {

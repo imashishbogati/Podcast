@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 import Combine
 
 class PodcastSearchViewController: UITableViewController {
@@ -48,11 +49,11 @@ class PodcastSearchViewController: UITableViewController {
         setupSearchController()
         tableView.addSubview(loadingIndicator)
         loadingIndicator.style = .medium
-        loadingIndicator.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            loadingIndicator.centerXAnchor.constraint(equalTo: tableView.centerXAnchor),
-            loadingIndicator.centerYAnchor.constraint(equalTo: tableView.centerYAnchor, constant: -150),
-        ])
+        
+        loadingIndicator.snp.makeConstraints { make in
+            make.centerX.equalTo(tableView.snp.centerX)
+            make.centerY.equalTo(tableView.snp.centerY).offset(-150)
+        }
     }
     
     fileprivate func setupTableView() {
