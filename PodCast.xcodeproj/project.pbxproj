@@ -12,6 +12,8 @@
 		0B6F5968294C355300D05C2A /* AudioSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6F5967294C355300D05C2A /* AudioSliderView.swift */; };
 		0B6F596B294C5CF200D05C2A /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 0B6F596A294C5CF200D05C2A /* SnapKit */; };
 		0B6F596D294C672E00D05C2A /* CMTime+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6F596C294C672E00D05C2A /* CMTime+Extensions.swift */; };
+		0BB7BC69294F12FB006D560E /* AudioSliderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB7BC68294F12FB006D560E /* AudioSliderViewModel.swift */; };
+		0BB7BC6B294F1542006D560E /* PlayerControlViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB7BC6A294F1542006D560E /* PlayerControlViewModel.swift */; };
 		0BF84FBF294632A6004F044D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF84FBE294632A6004F044D /* AppDelegate.swift */; };
 		0BF84FC1294632A6004F044D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF84FC0294632A6004F044D /* SceneDelegate.swift */; };
 		0BF84FC8294632A7004F044D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0BF84FC7294632A7004F044D /* Assets.xcassets */; };
@@ -68,6 +70,8 @@
 		0B6F5965294C354200D05C2A /* PlayerControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerControlView.swift; sourceTree = "<group>"; };
 		0B6F5967294C355300D05C2A /* AudioSliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioSliderView.swift; sourceTree = "<group>"; };
 		0B6F596C294C672E00D05C2A /* CMTime+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CMTime+Extensions.swift"; sourceTree = "<group>"; };
+		0BB7BC68294F12FB006D560E /* AudioSliderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioSliderViewModel.swift; sourceTree = "<group>"; };
+		0BB7BC6A294F1542006D560E /* PlayerControlViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerControlViewModel.swift; sourceTree = "<group>"; };
 		0BF84FBB294632A6004F044D /* PodCast.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PodCast.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BF84FBE294632A6004F044D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0BF84FC0294632A6004F044D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -451,6 +455,8 @@
 			isa = PBXGroup;
 			children = (
 				0BF850B2294B31E7004F044D /* PlayerViewModel.swift */,
+				0BB7BC68294F12FB006D560E /* AudioSliderViewModel.swift */,
+				0BB7BC6A294F1542006D560E /* PlayerControlViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -604,6 +610,7 @@
 				0BF850A3294A0BAD004F044D /* EpisodeRemoteAPI.swift in Sources */,
 				0BF84FBF294632A6004F044D /* AppDelegate.swift in Sources */,
 				0BF8505429487585004F044D /* PodCastListTableViewCell.swift in Sources */,
+				0BB7BC6B294F1542006D560E /* PlayerControlViewModel.swift in Sources */,
 				0BF8504B29483C05004F044D /* PodCastDependencyContainer.swift in Sources */,
 				0B6F596D294C672E00D05C2A /* CMTime+Extensions.swift in Sources */,
 				0BF850002946D162004F044D /* Podcast.swift in Sources */,
@@ -621,6 +628,7 @@
 				0BF850A9294A206D004F044D /* EpisodeViewModel.swift in Sources */,
 				0BF8500D2946DA05004F044D /* SearchPodCastRemoteAPI.swift in Sources */,
 				0BF850AF294B0818004F044D /* PlayerView.swift in Sources */,
+				0BB7BC69294F12FB006D560E /* AudioSliderViewModel.swift in Sources */,
 				0BF850582948D234004F044D /* EpisodeViewController.swift in Sources */,
 				0BF850A6294A0C26004F044D /* ItunesEpisodeRemoteAPI.swift in Sources */,
 				0B6F5966294C354200D05C2A /* PlayerControlView.swift in Sources */,

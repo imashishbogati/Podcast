@@ -62,8 +62,8 @@ class PlayerView: UIView {
         return label
     }()
     
-    let audioSliderView = AudioSliderView()
-    let playerControl = PlayerControlView()
+    lazy var audioSliderView = AudioSliderView(viewModel: AudioSliderViewModel(avPlayer: playerViewModel.avPlayer))
+    lazy var playerControl = PlayerControlView(viewModel: PlayerControlViewModel(avPlayer: playerViewModel.avPlayer))
     let soundControl = SoundControlView()
     let playerViewModel = PlayerViewModel()
     
@@ -74,9 +74,6 @@ class PlayerView: UIView {
         setupViews()
         loadData()
         playerViewModel.streamURL = episode.streamURL
-        observeViewModel()
-        observeAlbumArtEnlarge()
-        observerTimeStamp()
     }
     
     required init?(coder: NSCoder) {
@@ -85,11 +82,9 @@ class PlayerView: UIView {
     
     fileprivate func setupViews() {
         backgroundColor = .secondarySystemBackground
-        
+        playerControl.delegate = self
         dismissButton.addTarget(self, action: #selector(didTapDismiss), for: .touchUpInside)
-        playerControl.playButton.addTarget(playerViewModel, action: #selector(playerViewModel.play), for: .touchUpInside)
-        audioSliderView.playerSlider.addTarget(self, action: #selector(handleCurrentTimeSliderChange), for: .valueChanged)
-        
+    
         addSubview(stackView)
         stackView.addArrangedSubview(dismissButton)
         stackView.addArrangedSubview(albumArtImageView)
@@ -157,57 +152,22 @@ class PlayerView: UIView {
         }
     }
     
-    fileprivate func observeViewModel() {
-        playerViewModel.$isPlaying.receive(on: DispatchQueue.main)
-            .sink { [weak self] status in
-                let image = status == true ? UIImage(named: "pause") : UIImage(named: "play")
-                self?.playerControl.playButton.setImage(image, for: .normal)
-            }.store(in: &subscriptions)
-    }
-    
-    fileprivate func observeAlbumArtEnlarge() {
-        playerViewModel.$isEnlargeEpisode.receive(on: DispatchQueue.main)
-            .sink { [weak self] status in
-                if status == true {
-                    self?.animateAlbumArtImageView(scale: 0.0)
-                } else {
-                    self?.animateAlbumArtImageView()
-                }
-            }.store(in: &subscriptions)
-    }
-    
-    fileprivate func observerTimeStamp() {
-        playerViewModel.$currentPlayingTime.receive(on: DispatchQueue.main)
-            .sink { [weak self] time in
-                self?.audioSliderView.currentPlayingTimeLabel.text = time
-            }.store(in: &subscriptions)
-        
-        playerViewModel.$totalTimeValue.receive(on: DispatchQueue.main)
-            .sink { [weak self] time in
-                self?.audioSliderView.totalPlayingTimeLabel.text = time
-            }.store(in: &subscriptions)
-        
-        playerViewModel.$currentPlayingTimeSlider.receive(on: DispatchQueue.main)
-            .sink { [weak self] value in
-                self?.audioSliderView.playerSlider.value = value
-            }.store(in: &subscriptions)
-        
-        playerViewModel.$currentBufferValue.receive(on: DispatchQueue.main)
-            .sink { [weak self] value in
-                self?.audioSliderView.bufferProgress.progress = value
-            }.store(in: &subscriptions)
-    }
-    
     // MARK: - Actions
     @objc
     func didTapDismiss() {
         self.removeFromSuperview()
     }
-    
-    @objc
-    func handleCurrentTimeSliderChange(_ sender: UISlider) {
-        playerViewModel.handleSliderValueChange(sender.value)
+}
+
+extension PlayerView: PlayerControlViewDelegate {
+    func isAudioPlaying(status: Bool) {
+        if status == true {
+            self.animateAlbumArtImageView(scale: 0.0)
+        } else {
+            self.animateAlbumArtImageView()
+        }
     }
+    
 }
 
 protocol PlayerViewFactory {

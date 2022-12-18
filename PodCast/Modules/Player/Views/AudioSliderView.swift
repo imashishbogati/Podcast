@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import Combine
 
 class AudioSliderView: UIView {
     
@@ -16,7 +17,6 @@ class AudioSliderView: UIView {
         view.axis = .vertical
         return view
     }()
-    
     
     let playerSliderContainerView: UIView = {
         let view = UIView()
@@ -64,10 +64,16 @@ class AudioSliderView: UIView {
         return label
     }()
     
+    private var subscriptions = Set<AnyCancellable>()
+    
+    var viewModel: AudioSliderViewModel
+    
     // MARK: - Methods
-    override init(frame: CGRect) {
+    init(frame: CGRect = .zero, viewModel: AudioSliderViewModel) {
+        self.viewModel = viewModel
         super.init(frame: frame)
         setupViews()
+        observerTimeStamp()
     }
     
     required init?(coder: NSCoder) {
@@ -75,6 +81,9 @@ class AudioSliderView: UIView {
     }
     
     fileprivate func setupViews() {
+        
+        playerSlider.addTarget(self, action: #selector(handleCurrentTimeSliderChange), for: .valueChanged)
+    
         addSubview(playerStackView)
         playerSliderContainerView.addSubview(bufferProgress)
         bufferProgress.addSubview(playerSlider)
@@ -110,5 +119,33 @@ class AudioSliderView: UIView {
         timeStampStackView.snp.makeConstraints { make in
             make.height.equalTo(40)
         }
+    }
+    
+    fileprivate func observerTimeStamp() {
+        viewModel.$currentPlayingTime.receive(on: DispatchQueue.main)
+            .sink { [weak self] time in
+                self?.currentPlayingTimeLabel.text = time
+            }.store(in: &subscriptions)
+        
+        viewModel.$totalTimeValue.receive(on: DispatchQueue.main)
+            .sink { [weak self] time in
+                self?.totalPlayingTimeLabel.text = time
+            }.store(in: &subscriptions)
+        
+        viewModel.$currentPlayingTimeSlider.receive(on: DispatchQueue.main)
+            .sink { [weak self] value in
+                self?.playerSlider.value = value
+            }.store(in: &subscriptions)
+        
+        viewModel.$currentBufferValue.receive(on: DispatchQueue.main)
+            .sink { [weak self] value in
+                self?.bufferProgress.progress = value
+            }.store(in: &subscriptions)
+    }
+    
+    // MARK: - Actions
+    @objc
+    func handleCurrentTimeSliderChange(_ sender: UISlider) {
+        viewModel.handleSliderValueChange(sender.value)
     }
 }

@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import Combine
 
 class PlayerControlView: UIView {
     
@@ -39,10 +40,16 @@ class PlayerControlView: UIView {
         return button
     }()
     
+    private var subscriptions = Set<AnyCancellable>()
+    var viewModel: PlayerControlViewModel
+    weak var delegate: PlayerControlViewDelegate?
+    
     // MARK: - Methods
-    override init(frame: CGRect) {
+    init(frame: CGRect = .zero, viewModel: PlayerControlViewModel) {
+        self.viewModel = viewModel
         super.init(frame: frame)
         setupViews()
+        observeViewModel()
     }
     
     required init?(coder: NSCoder) {
@@ -50,6 +57,9 @@ class PlayerControlView: UIView {
     }
     
     fileprivate func setupViews() {
+        playButton.addTarget(viewModel, action: #selector(viewModel.play), for: .touchUpInside)
+        rewindButton.addTarget(viewModel, action: #selector(viewModel.rewind), for: .touchUpInside)
+        forwardButton.addTarget(viewModel, action: #selector(viewModel.fastForward), for: .touchUpInside)
         addSubview(playerControllerStackView)
         
         playerControllerStackView.addArrangedSubview(rewindButton)
@@ -60,4 +70,17 @@ class PlayerControlView: UIView {
             make.top.leading.trailing.bottom.equalTo(self)
         }
     }
+    
+    fileprivate func observeViewModel() {
+        viewModel.$isPlaying.receive(on: DispatchQueue.main)
+            .sink { [weak self] status in
+                let image = status == true ? UIImage(named: "pause") : UIImage(named: "play")
+                self?.delegate?.isAudioPlaying(status: status)
+                self?.playButton.setImage(image, for: .normal)
+            }.store(in: &subscriptions)
+    }
+}
+
+protocol PlayerControlViewDelegate: AnyObject {
+    func isAudioPlaying(status: Bool)
 }
