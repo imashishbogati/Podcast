@@ -12,7 +12,6 @@ import Combine
 class AudioSliderViewModel {
     
     // MARK: - Properties
-    
     @Published var currentPlayingTime: String = "00:00"
     @Published var totalTimeValue: String = "00:00"
     @Published var currentPlayingTimeSlider: Float = 0.0
