@@ -7,8 +7,8 @@
 
 import UIKit
 import SDWebImage
-
 import Combine
+import SnapKit
 
 class PlayerView: UIView {
     
@@ -36,8 +36,9 @@ class PlayerView: UIView {
     lazy var albumArtImageView: UIImageView = {
         let view = UIImageView()
         view.image = UIImage(named: "appicon")
-        view.contentMode = .scaleAspectFit
-        view.sd_setImage(with: URL(string: episode.image ?? ""))
+        view.contentMode = .scaleAspectFill
+        view.layer.cornerRadius = 8
+        view.clipsToBounds = true
         return view
     }()
     
@@ -61,93 +62,9 @@ class PlayerView: UIView {
         return label
     }()
     
-    let playerControllerStackView: UIStackView = {
-        let view = UIStackView()
-        view.axis = .horizontal
-        view.distribution = .fillEqually
-        return view
-    }()
-    
-    let rewindButton: UIButton = {
-        let button = UIButton()
-        button.setImage(UIImage(named: "rewind15"), for: .normal)
-        button.tintColor = .label
-        return button
-    }()
-    
-    lazy var playButton: UIButton = {
-        let button = UIButton()
-        button.setImage(UIImage(named: "play"), for: .normal)
-        button.addTarget(playerViewModel, action: #selector(playerViewModel.play), for: .touchUpInside)
-        button.tintColor = .label
-        return button
-    }()
-    
-    let forwardButton: UIButton = {
-        let button = UIButton()
-        button.setImage(UIImage(named: "fastforward15"), for: .normal)
-        button.tintColor = .label
-        return button
-    }()
-    
-    
-    let playerSlider: UISlider = {
-        let slider = UISlider()
-        return slider
-    }()
-    
-    let currentPlayingTimeLabel: UILabel = {
-        let label = UILabel()
-        label.tintColor = .secondaryLabel
-        label.font = .systemFont(ofSize: 12)
-        label.text = "00:00:00"
-        return label
-    }()
-    
-    let totalPlayingTimeLabel: UILabel = {
-        let label = UILabel()
-        label.tintColor = .secondaryLabel
-        label.textAlignment = .right
-        label.text = "88:88:88"
-        label.font = .systemFont(ofSize: 12)
-        return label
-    }()
-    
-    let timeStampStackView: UIStackView = {
-        let view = UIStackView()
-        view.distribution = .fill
-        view.axis = .horizontal
-        return view
-    }()
-    
-    let volumControlStackView: UIStackView = {
-        let view = UIStackView()
-        view.axis = .horizontal
-        view.distribution = .fill
-        return view
-    }()
-    
-    let muteButton: UIButton = {
-        let button = UIButton()
-        button.setImage(UIImage(named: "muted_volume"), for: .normal)
-        button.tintColor = .label
-        return button
-    }()
-    
-    let maxVolumeButton: UIButton = {
-        let button = UIButton()
-        button.setImage(UIImage(named: "max_volume"), for: .normal)
-        button.tintColor = .label
-        return button
-    }()
-    
-    let volumeSlider: UISlider = {
-        let slider = UISlider()
-        return slider
-    }()
-
-    
-    
+    let audioSliderView = AudioSliderView()
+    let playerControl = PlayerControlView()
+    let soundControl = SoundControlView()
     let playerViewModel = PlayerViewModel()
     
     // MARK: - Methods
@@ -158,8 +75,9 @@ class PlayerView: UIView {
         loadData()
         playerViewModel.streamURL = episode.streamURL
         observeViewModel()
+        observeAlbumArtEnlarge()
+        observerTimeStamp()
     }
-    
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -169,65 +87,114 @@ class PlayerView: UIView {
         backgroundColor = .secondarySystemBackground
         
         dismissButton.addTarget(self, action: #selector(didTapDismiss), for: .touchUpInside)
+        playerControl.playButton.addTarget(playerViewModel, action: #selector(playerViewModel.play), for: .touchUpInside)
+        audioSliderView.playerSlider.addTarget(self, action: #selector(handleCurrentTimeSliderChange), for: .valueChanged)
         
         addSubview(stackView)
         stackView.addArrangedSubview(dismissButton)
         stackView.addArrangedSubview(albumArtImageView)
-        stackView.addArrangedSubview(playerSlider)
-        stackView.addArrangedSubview(timeStampStackView)
+        stackView.addArrangedSubview(audioSliderView)
         stackView.addArrangedSubview(trackNameLabel)
         stackView.addArrangedSubview(authorLabel)
         
-        stackView.addArrangedSubview(playerControllerStackView)
-        stackView.addArrangedSubview(volumControlStackView)
-        
-        
-        playerControllerStackView.addArrangedSubview(rewindButton)
-        playerControllerStackView.addArrangedSubview(playButton)
-        playerControllerStackView.addArrangedSubview(forwardButton)
-        
-        volumControlStackView.addArrangedSubview(muteButton)
-        volumControlStackView.addArrangedSubview(volumeSlider)
-        volumControlStackView.addArrangedSubview(maxVolumeButton)
-        
-        
-        timeStampStackView.addArrangedSubview(currentPlayingTimeLabel)
-        timeStampStackView.addArrangedSubview(totalPlayingTimeLabel)
-        
+        stackView.addArrangedSubview(playerControl)
+        stackView.addArrangedSubview(soundControl)
+    
         setupConstraints()
     }
     
     fileprivate func setupConstraints() {
-        NSLayoutConstraint.activate([
-            
-            dismissButton.heightAnchor.constraint(equalToConstant: 44),
-            playerSlider.heightAnchor.constraint(equalToConstant: 35),
-            timeStampStackView.heightAnchor.constraint(equalToConstant: 40),
-            
-            albumArtImageView.heightAnchor.constraint(equalTo: albumArtImageView.widthAnchor, multiplier: 1.0/1.0),
-            
-            trackNameLabel.heightAnchor.constraint(equalToConstant: 20),
-            authorLabel.heightAnchor.constraint(equalToConstant: 20),
-            volumControlStackView.heightAnchor.constraint(equalToConstant: 34),
-            
-            stackView.topAnchor.constraint(equalTo: topAnchor, constant: 50),
-            stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-            stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
-            stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20),
-        ])
+        soundControl.snp.makeConstraints { make in
+            make.height.equalTo(34)
+        }
+        
+        dismissButton.snp.makeConstraints { make in
+            make.height.equalTo(44)
+        }
+        
+        audioSliderView.snp.makeConstraints { make in
+            make.height.equalTo(75)
+        }
+        
+        albumArtImageView.snp.makeConstraints { make in
+            make.height.equalTo(albumArtImageView.snp.width).multipliedBy(1.0)
+        }
+        
+        trackNameLabel.snp.makeConstraints { make in
+            make.height.equalTo(20)
+        }
+        
+        authorLabel.snp.makeConstraints { make in
+            make.height.equalTo(20)
+        }
+        
+        soundControl.snp.makeConstraints { make in
+            make.height.equalTo(34)
+        }
+        
+        stackView.snp.makeConstraints { make in
+            make.top.equalTo(self).offset(50)
+            make.leading.equalTo(self).offset(20)
+            make.trailing.equalTo(self).offset(-20)
+            make.bottom.equalTo(self).offset(-20)
+        }
     }
     
     fileprivate func loadData() {
+        albumArtImageView.sd_setImage(with: URL(string: episode.image ?? ""))
         trackNameLabel.text = episode.title ?? "No Title"
         authorLabel.text = episode.author ?? ""
+        animateAlbumArtImageView()
     }
     
+    fileprivate func animateAlbumArtImageView(scale: CGFloat = 0.7) {
+        UIView.animate(withDuration: 0.75, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 1, options: .curveEaseOut) {
+            if scale == 0 {
+                self.albumArtImageView.transform = .identity
+            } else {
+                self.albumArtImageView.transform = CGAffineTransform(scaleX: scale, y: scale)
+            }
+        }
+    }
     
     fileprivate func observeViewModel() {
         playerViewModel.$isPlaying.receive(on: DispatchQueue.main)
             .sink { [weak self] status in
                 let image = status == true ? UIImage(named: "pause") : UIImage(named: "play")
-                self?.playButton.setImage(image, for: .normal)
+                self?.playerControl.playButton.setImage(image, for: .normal)
+            }.store(in: &subscriptions)
+    }
+    
+    fileprivate func observeAlbumArtEnlarge() {
+        playerViewModel.$isEnlargeEpisode.receive(on: DispatchQueue.main)
+            .sink { [weak self] status in
+                if status == true {
+                    self?.animateAlbumArtImageView(scale: 0.0)
+                } else {
+                    self?.animateAlbumArtImageView()
+                }
+            }.store(in: &subscriptions)
+    }
+    
+    fileprivate func observerTimeStamp() {
+        playerViewModel.$currentPlayingTime.receive(on: DispatchQueue.main)
+            .sink { [weak self] time in
+                self?.audioSliderView.currentPlayingTimeLabel.text = time
+            }.store(in: &subscriptions)
+        
+        playerViewModel.$totalTimeValue.receive(on: DispatchQueue.main)
+            .sink { [weak self] time in
+                self?.audioSliderView.totalPlayingTimeLabel.text = time
+            }.store(in: &subscriptions)
+        
+        playerViewModel.$currentPlayingTimeSlider.receive(on: DispatchQueue.main)
+            .sink { [weak self] value in
+                self?.audioSliderView.playerSlider.value = value
+            }.store(in: &subscriptions)
+        
+        playerViewModel.$currentBufferValue.receive(on: DispatchQueue.main)
+            .sink { [weak self] value in
+                self?.audioSliderView.bufferProgress.progress = value
             }.store(in: &subscriptions)
     }
     
@@ -237,12 +204,11 @@ class PlayerView: UIView {
         self.removeFromSuperview()
     }
     
-//    @objc
-//    func didTapPlayButton() {
-//
-//    }
+    @objc
+    func handleCurrentTimeSliderChange(_ sender: UISlider) {
+        playerViewModel.handleSliderValueChange(sender.value)
+    }
 }
-
 
 protocol PlayerViewFactory {
     func makePlayerView(episode: Episode) -> PlayerView

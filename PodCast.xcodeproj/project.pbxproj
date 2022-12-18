@@ -3,10 +3,15 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 53;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0B6F5964294C353200D05C2A /* SoundControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6F5963294C353200D05C2A /* SoundControlView.swift */; };
+		0B6F5966294C354200D05C2A /* PlayerControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6F5965294C354200D05C2A /* PlayerControlView.swift */; };
+		0B6F5968294C355300D05C2A /* AudioSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6F5967294C355300D05C2A /* AudioSliderView.swift */; };
+		0B6F596B294C5CF200D05C2A /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 0B6F596A294C5CF200D05C2A /* SnapKit */; };
+		0B6F596D294C672E00D05C2A /* CMTime+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6F596C294C672E00D05C2A /* CMTime+Extensions.swift */; };
 		0BF84FBF294632A6004F044D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF84FBE294632A6004F044D /* AppDelegate.swift */; };
 		0BF84FC1294632A6004F044D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF84FC0294632A6004F044D /* SceneDelegate.swift */; };
 		0BF84FC8294632A7004F044D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0BF84FC7294632A7004F044D /* Assets.xcassets */; };
@@ -59,6 +64,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0B6F5963294C353200D05C2A /* SoundControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundControlView.swift; sourceTree = "<group>"; };
+		0B6F5965294C354200D05C2A /* PlayerControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerControlView.swift; sourceTree = "<group>"; };
+		0B6F5967294C355300D05C2A /* AudioSliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioSliderView.swift; sourceTree = "<group>"; };
+		0B6F596C294C672E00D05C2A /* CMTime+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CMTime+Extensions.swift"; sourceTree = "<group>"; };
 		0BF84FBB294632A6004F044D /* PodCast.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PodCast.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BF84FBE294632A6004F044D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0BF84FC0294632A6004F044D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -100,6 +109,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0BF8505129484041004F044D /* SDWebImage in Frameworks */,
+				0B6F596B294C5CF200D05C2A /* SnapKit in Frameworks */,
 				0BF8509E2949F9BA004F044D /* XMLParsing in Frameworks */,
 				0BF8509B2949F799004F044D /* FeedKit in Frameworks */,
 			);
@@ -412,6 +422,7 @@
 			isa = PBXGroup;
 			children = (
 				0BF850AB294AFEE2004F044D /* UIString+extensions.swift */,
+				0B6F596C294C672E00D05C2A /* CMTime+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -429,6 +440,9 @@
 		0BF850B0294B2A3F004F044D /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				0B6F5963294C353200D05C2A /* SoundControlView.swift */,
+				0B6F5965294C354200D05C2A /* PlayerControlView.swift */,
+				0B6F5967294C355300D05C2A /* AudioSliderView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -461,6 +475,7 @@
 				0BF8505029484041004F044D /* SDWebImage */,
 				0BF8509A2949F799004F044D /* FeedKit */,
 				0BF8509D2949F9BA004F044D /* XMLParsing */,
+				0B6F596A294C5CF200D05C2A /* SnapKit */,
 			);
 			productName = PodCast;
 			productReference = 0BF84FBB294632A6004F044D /* PodCast.app */;
@@ -526,7 +541,7 @@
 				};
 			};
 			buildConfigurationList = 0BF84FB6294632A6004F044D /* Build configuration list for PBXProject "PodCast" */;
-			compatibilityVersion = "Xcode 14.0";
+			compatibilityVersion = "Xcode 11.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -538,6 +553,7 @@
 				0BF8504F29484041004F044D /* XCRemoteSwiftPackageReference "SDWebImage" */,
 				0BF850992949F799004F044D /* XCRemoteSwiftPackageReference "FeedKit" */,
 				0BF8509C2949F9BA004F044D /* XCRemoteSwiftPackageReference "XMLParsing" */,
+				0B6F5969294C5CF200D05C2A /* XCRemoteSwiftPackageReference "SnapKit" */,
 			);
 			productRefGroup = 0BF84FBC294632A6004F044D /* Products */;
 			projectDirPath = "";
@@ -582,15 +598,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				0BF8500A2946D915004F044D /* RemoteAPIError.swift in Sources */,
+				0B6F5964294C353200D05C2A /* SoundControlView.swift in Sources */,
 				0BF84FFC29463822004F044D /* PodcastSearchViewController.swift in Sources */,
 				0BF850072946D7DC004F044D /* PodCastNetworkManager.swift in Sources */,
 				0BF850A3294A0BAD004F044D /* EpisodeRemoteAPI.swift in Sources */,
 				0BF84FBF294632A6004F044D /* AppDelegate.swift in Sources */,
 				0BF8505429487585004F044D /* PodCastListTableViewCell.swift in Sources */,
 				0BF8504B29483C05004F044D /* PodCastDependencyContainer.swift in Sources */,
+				0B6F596D294C672E00D05C2A /* CMTime+Extensions.swift in Sources */,
 				0BF850002946D162004F044D /* Podcast.swift in Sources */,
 				0BF850AC294AFEE2004F044D /* UIString+extensions.swift in Sources */,
 				0BF850B3294B31E7004F044D /* PlayerViewModel.swift in Sources */,
+				0B6F5968294C355300D05C2A /* AudioSliderView.swift in Sources */,
 				0BF850A1294A0B70004F044D /* Episode.swift in Sources */,
 				0BF850982949F2B1004F044D /* EpisodeListTableViewCell.swift in Sources */,
 				0BF850032946D7B3004F044D /* NetworkManager.swift in Sources */,
@@ -604,6 +623,7 @@
 				0BF850AF294B0818004F044D /* PlayerView.swift in Sources */,
 				0BF850582948D234004F044D /* EpisodeViewController.swift in Sources */,
 				0BF850A6294A0C26004F044D /* ItunesEpisodeRemoteAPI.swift in Sources */,
+				0B6F5966294C354200D05C2A /* PlayerControlView.swift in Sources */,
 				0BF84FF429463349004F044D /* MainTabBarController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -936,6 +956,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		0B6F5969294C5CF200D05C2A /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 		0BF8504F29484041004F044D /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SDWebImage/SDWebImage.git";
@@ -963,6 +991,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		0B6F596A294C5CF200D05C2A /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0B6F5969294C5CF200D05C2A /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
 		0BF8505029484041004F044D /* SDWebImage */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 0BF8504F29484041004F044D /* XCRemoteSwiftPackageReference "SDWebImage" */;
