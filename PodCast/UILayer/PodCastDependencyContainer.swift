@@ -6,8 +6,12 @@
 //
 
 import Foundation
+import AVKit
 
 class PodCastDependencyContainer {
+    
+    // MARK: - Longed Lived Dependency
+    lazy var avPlayer: AVPlayer = makeAVPlayer()
     
     // MARK: - MainTabBar
     func makeMainTabBar() -> MainTabBarController {
@@ -29,6 +33,10 @@ class PodCastDependencyContainer {
         return ItunesEpisodeRemoteAPI()
     }
     
+    // MARK: - AVPlayer
+    func makeAVPlayer() -> AVPlayer {
+        return AVPlayer()
+    }
 }
 
 // MARK: - Search Podcast
@@ -60,6 +68,51 @@ extension PodCastDependencyContainer: EpisodeViewModelFactory {
 // MARK: - Player View
 extension PodCastDependencyContainer: PlayerViewFactory {
     func makePlayerView(episode: Episode) -> PlayerView {
-        return PlayerView(episode: episode)
+        return PlayerView(episode: episode, factory: self)
+    }
+}
+
+extension PodCastDependencyContainer: PlayerViewModelFactory {
+    func makePlayerViewModel() -> PlayerViewModel {
+        return PlayerViewModel(player: avPlayer)
+    }
+}
+
+// MARK: - Player Control
+extension PodCastDependencyContainer: PlayerControlViewFactory {
+    func makePlayerControl() -> PlayerControlView {
+        return PlayerControlView(factory: self)
+    }
+}
+
+extension PodCastDependencyContainer: PlayerControlViewModelFactory {
+    func makePlayerControlViewModel() -> PlayerControlViewModel {
+        return PlayerControlViewModel(player: avPlayer)
+    }
+}
+
+// MARK: - Sound Control
+extension PodCastDependencyContainer: SoundControlViewFactory {
+    func makeSoundControlView() -> SoundControlView {
+        return SoundControlView(viewModel: makeSoundControlViewModel())
+    }
+}
+
+extension PodCastDependencyContainer: SoundControlViewModelFactory {
+    func makeSoundControlViewModel() -> SoundControlViewModel {
+        return SoundControlViewModel(player: avPlayer)
+    }
+}
+
+// MARK: - Audio Slider
+extension PodCastDependencyContainer: AudioSliderViewFactory {
+    func makeAudioSliderFactory() -> AudioSliderView {
+        return AudioSliderView(viewModel: makeAudioSliderViewModel())
+    }
+}
+
+extension PodCastDependencyContainer: AudioSliderViewModelFactory {
+    func makeAudioSliderViewModel() -> AudioSliderViewModel {
+        return AudioSliderViewModel(player: avPlayer)
     }
 }

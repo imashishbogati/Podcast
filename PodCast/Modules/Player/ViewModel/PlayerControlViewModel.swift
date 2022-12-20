@@ -13,21 +13,21 @@ class PlayerControlViewModel {
     
     // MARK: - Properties
     @Published var isPlaying: Bool = false
-    fileprivate var avPlayer: AVPlayer
+    fileprivate var player: AVPlayer
     
     // MARK: - Methods
-    init(avPlayer: AVPlayer) {
-        self.avPlayer = avPlayer
+    init(player: AVPlayer) {
+        self.player = player
     }
     
     @objc
     func play() {
         isPlaying = true
-        if avPlayer.timeControlStatus == .paused {
-            avPlayer.play()
+        if player.timeControlStatus == .paused {
+            player.play()
             isPlaying = true
         } else {
-            avPlayer.pause()
+            player.pause()
             isPlaying = false
         }
     }
@@ -35,14 +35,19 @@ class PlayerControlViewModel {
     @objc
     func rewind() {
         let seconds = CMTimeMake(value: 15, timescale: 1)
-        let seekTime = CMTimeSubtract(avPlayer.currentTime(), seconds)
-        avPlayer.seek(to: seekTime)
+        let seekTime = CMTimeSubtract(player.currentTime(), seconds)
+        player.seek(to: seekTime)
     }
     
     @objc
     func fastForward() {
         let seconds = CMTimeMake(value: 15, timescale: 1)
-        let seekTime = CMTimeAdd(avPlayer.currentTime(), seconds)
-        avPlayer.seek(to: seekTime)
+        let seekTime = CMTimeAdd(player.currentTime(), seconds)
+        player.seek(to: seekTime)
     }
+}
+
+// MARK: - Protocol
+protocol PlayerControlViewModelFactory {
+    func makePlayerControlViewModel() -> PlayerControlViewModel
 }

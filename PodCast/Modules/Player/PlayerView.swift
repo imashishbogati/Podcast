@@ -62,13 +62,17 @@ class PlayerView: UIView {
         return label
     }()
     
-    lazy var audioSliderView = AudioSliderView(viewModel: AudioSliderViewModel(avPlayer: playerViewModel.avPlayer))
-    lazy var playerControl = PlayerControlView(viewModel: PlayerControlViewModel(avPlayer: playerViewModel.avPlayer))
-    lazy var soundControl = SoundControlView(viewModel: SoundControlViewModel(avPlayer: playerViewModel.avPlayer))
-    let playerViewModel = PlayerViewModel()
+    typealias Factory = PlayerControlViewFactory & PlayerViewModelFactory & SoundControlViewFactory & AudioSliderViewFactory
+    var factory: Factory
+    
+    lazy var audioSliderView = factory.makeAudioSliderFactory()
+    lazy var playerControl = factory.makePlayerControl()
+    lazy var soundControl = factory.makeSoundControlView()
+    lazy var playerViewModel = factory.makePlayerViewModel()
     
     // MARK: - Methods
-    init(frame: CGRect = .zero, episode: Episode) {
+    init(frame: CGRect = .zero, episode: Episode, factory: Factory) {
+        self.factory = factory
         self.episode = episode
         super.init(frame: frame)
         setupViews()
@@ -170,6 +174,7 @@ extension PlayerView: PlayerControlViewDelegate {
     
 }
 
+// MARK: - Protocols
 protocol PlayerViewFactory {
     func makePlayerView(episode: Episode) -> PlayerView
 }

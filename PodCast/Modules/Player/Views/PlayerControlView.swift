@@ -41,12 +41,14 @@ class PlayerControlView: UIView {
     }()
     
     private var subscriptions = Set<AnyCancellable>()
-    var viewModel: PlayerControlViewModel
+    typealias Factory = PlayerControlViewModelFactory
+    var factory: Factory
+    lazy var viewModel = factory.makePlayerControlViewModel()
     weak var delegate: PlayerControlViewDelegate?
     
     // MARK: - Methods
-    init(frame: CGRect = .zero, viewModel: PlayerControlViewModel) {
-        self.viewModel = viewModel
+    init(frame: CGRect = .zero, factory: Factory) {
+        self.factory = factory
         super.init(frame: frame)
         setupViews()
         observeViewModel()
@@ -81,6 +83,11 @@ class PlayerControlView: UIView {
     }
 }
 
+// MARK: - Protocols
 protocol PlayerControlViewDelegate: AnyObject {
     func isAudioPlaying(status: Bool)
+}
+
+protocol PlayerControlViewFactory {
+    func makePlayerControl() -> PlayerControlView
 }

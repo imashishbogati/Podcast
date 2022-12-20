@@ -23,9 +23,7 @@ class EpisodeViewModel {
         self.podCast = podCast
         self.itunesEpisodeRemoteAPI = itunesEpisodeRemoteAPI
         self.navigationTitle = podCast.trackName ?? "No title"
-        DispatchQueue.global(qos: .background).async {
-            self.fetchEpisode()
-        }
+        self.fetchEpisode()
     }
     
     func fetchEpisode() {

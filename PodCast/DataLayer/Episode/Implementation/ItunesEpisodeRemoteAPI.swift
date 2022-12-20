@@ -18,8 +18,8 @@ class ItunesEpisodeRemoteAPI: EpisodeRemoteAPI {
         
         let parser = FeedParser(URL: url)
         
-        parser.parseAsync { result in
-            switch result {
+        parser.parseAsync(queue: .global(qos: .background)) { results in
+            switch results {
             case .success(let success):
                 switch success {
                 case let .rss(feed):
@@ -36,6 +36,8 @@ class ItunesEpisodeRemoteAPI: EpisodeRemoteAPI {
                 completion(.failure(failure))
             }
         }
+        
+        
     }
     
     

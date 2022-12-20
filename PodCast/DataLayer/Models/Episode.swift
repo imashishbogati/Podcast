@@ -8,7 +8,7 @@
 import Foundation
 import FeedKit
 
-struct Episode {
+class Episode {
     let title: String?
     let lastBuildDate: Date?
     var image: String?

@@ -13,11 +13,13 @@ import Combine
 class PlayerViewModel {
     
     // MARK: - Properties
-    var avPlayer: AVPlayer = AVPlayer()
+    var player: AVPlayer
     @Published var streamURL: String?
     fileprivate var subscriptions = Set<AnyCancellable>()
     
-    init() {
+    
+    init(player: AVPlayer) {
+        self.player = player
         observeStreamURL()
     }
     
@@ -29,8 +31,13 @@ class PlayerViewModel {
                     return
                 }
                 let avPlayerItem = AVPlayerItem(url: url)
-                self?.avPlayer.replaceCurrentItem(with: avPlayerItem)
+                self?.player.replaceCurrentItem(with: avPlayerItem)
             }.store(in: &subscriptions)
     }
     
+}
+
+// MARK: - Protocol
+protocol PlayerViewModelFactory {
+    func makePlayerViewModel() -> PlayerViewModel
 }

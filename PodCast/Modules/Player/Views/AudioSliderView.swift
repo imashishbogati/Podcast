@@ -149,3 +149,8 @@ class AudioSliderView: UIView {
         viewModel.handleSliderValueChange(sender.value)
     }
 }
+
+// MARK: - Protocols
+protocol AudioSliderViewFactory {
+    func makeAudioSliderFactory() -> AudioSliderView
+}

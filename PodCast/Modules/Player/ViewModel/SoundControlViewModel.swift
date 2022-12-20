@@ -12,21 +12,26 @@ import Combine
 class SoundControlViewModel {
     
     // MARK: - Properties
-    fileprivate var avPlayer: AVPlayer
+    fileprivate var player: AVPlayer
     @Published var volume: Float = 1
     fileprivate var subscriptions = Set<AnyCancellable>()
     
     // MARK: - Methods
-    init(avPlayer: AVPlayer) {
-        self.avPlayer = avPlayer
+    init(player: AVPlayer) {
+        self.player = player
         observeVolumeChanged()
     }
     
     func observeVolumeChanged() {
         $volume.receive(on: DispatchQueue.main)
             .sink { [weak self] value in
-                self?.avPlayer.volume = value
+                self?.player.volume = value
             }.store(in: &subscriptions)
     }
     
+}
+
+// MARK: - Protocol
+protocol SoundControlViewModelFactory {
+    func makeSoundControlViewModel() -> SoundControlViewModel
 }

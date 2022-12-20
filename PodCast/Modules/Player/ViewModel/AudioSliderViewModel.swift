@@ -22,8 +22,8 @@ class AudioSliderViewModel {
     fileprivate var timeObserverToken: Any?
     
     // MARK: - Methods
-    init(avPlayer: AVPlayer) {
-        self.player = avPlayer
+    init(player: AVPlayer) {
+        self.player = player
         observeCurrentPlayingTime()
     }
     
@@ -74,4 +74,9 @@ class AudioSliderViewModel {
             currentBufferValue = Float(percentage)
         }
     }
+}
+
+// MARK: - Protocol
+protocol AudioSliderViewModelFactory {
+    func makeAudioSliderViewModel() -> AudioSliderViewModel
 }

@@ -40,7 +40,6 @@ class SoundControlView: UIView {
     
     fileprivate var viewModel: SoundControlViewModel
     
-    
     // MARK: - Methods
     init(frame: CGRect = .zero, viewModel: SoundControlViewModel) {
         self.viewModel = viewModel
@@ -71,4 +70,9 @@ class SoundControlView: UIView {
     func handleVolumeValueChanged(_ sender: UISlider) {
         viewModel.volume = sender.value
     }
+}
+
+// MARK: - Protocols
+protocol SoundControlViewFactory {
+    func makeSoundControlView() -> SoundControlView
 }

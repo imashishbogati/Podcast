@@ -64,9 +64,9 @@ class EpisodeViewController: UITableViewController {
     
     fileprivate func observeViewModel() {
         viewModel.$episodes.receive(on: DispatchQueue.main)
-            .sink { response in
-                self.episodes = response
-                self.tableView.reloadData()
+            .sink { [weak self] response in
+                self?.episodes = response
+                self?.tableView.reloadData()
             }.store(in: &subscriptions)
     }
     
@@ -111,7 +111,7 @@ extension EpisodeViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        var episode = episodes[indexPath.item]
+        let episode = episodes[indexPath.item]
         let window = UIApplication
             .shared
             .connectedScenes
