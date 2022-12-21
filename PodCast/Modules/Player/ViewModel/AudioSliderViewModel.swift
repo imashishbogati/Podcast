@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import AVKit
+import AVFoundation
 import Combine
 
 class AudioSliderViewModel {
@@ -78,5 +78,5 @@ class AudioSliderViewModel {
 
 // MARK: - Protocol
 protocol AudioSliderViewModelFactory {
-    func makeAudioSliderViewModel() -> AudioSliderViewModel
+    func makeAudioSliderViewModel(player: AVPlayer) -> AudioSliderViewModel
 }

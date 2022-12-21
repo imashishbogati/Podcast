@@ -49,5 +49,5 @@ class PlayerControlViewModel {
 
 // MARK: - Protocol
 protocol PlayerControlViewModelFactory {
-    func makePlayerControlViewModel() -> PlayerControlViewModel
+    func makePlayerControlViewModel(player: AVPlayer) -> PlayerControlViewModel
 }

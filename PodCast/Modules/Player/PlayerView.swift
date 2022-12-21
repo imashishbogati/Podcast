@@ -65,10 +65,13 @@ class PlayerView: UIView {
     typealias Factory = PlayerControlViewFactory & PlayerViewModelFactory & SoundControlViewFactory & AudioSliderViewFactory
     var factory: Factory
     
-    lazy var audioSliderView = factory.makeAudioSliderFactory()
-    lazy var playerControl = factory.makePlayerControl()
-    lazy var soundControl = factory.makeSoundControlView()
     lazy var playerViewModel = factory.makePlayerViewModel()
+    fileprivate lazy var player = playerViewModel.player
+    
+    lazy var audioSliderView = factory.makeAudioSliderFactory(player: player)
+    lazy var playerControl = factory.makePlayerControl(player: player)
+    lazy var soundControl = factory.makeSoundControlView(player: player)
+    
     
     // MARK: - Methods
     init(frame: CGRect = .zero, episode: Episode, factory: Factory) {

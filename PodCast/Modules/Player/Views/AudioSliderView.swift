@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import AVFoundation
 import Combine
 
 class AudioSliderView: UIView {
@@ -152,5 +153,5 @@ class AudioSliderView: UIView {
 
 // MARK: - Protocols
 protocol AudioSliderViewFactory {
-    func makeAudioSliderFactory() -> AudioSliderView
+    func makeAudioSliderFactory(player: AVPlayer) -> AudioSliderView
 }

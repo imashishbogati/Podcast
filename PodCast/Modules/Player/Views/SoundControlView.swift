@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import AVFoundation
 
 class SoundControlView: UIView {
     
@@ -74,5 +75,5 @@ class SoundControlView: UIView {
 
 // MARK: - Protocols
 protocol SoundControlViewFactory {
-    func makeSoundControlView() -> SoundControlView
+    func makeSoundControlView(player: AVPlayer) -> SoundControlView
 }

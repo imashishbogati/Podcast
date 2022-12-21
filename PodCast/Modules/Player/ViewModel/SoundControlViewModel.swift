@@ -33,5 +33,5 @@ class SoundControlViewModel {
 
 // MARK: - Protocol
 protocol SoundControlViewModelFactory {
-    func makeSoundControlViewModel() -> SoundControlViewModel
+    func makeSoundControlViewModel(player: AVPlayer) -> SoundControlViewModel
 }

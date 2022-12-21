@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 import Combine
+import AVFoundation
 
 class PlayerControlView: UIView {
     
@@ -41,14 +42,12 @@ class PlayerControlView: UIView {
     }()
     
     private var subscriptions = Set<AnyCancellable>()
-    typealias Factory = PlayerControlViewModelFactory
-    var factory: Factory
-    lazy var viewModel = factory.makePlayerControlViewModel()
+    var viewModel: PlayerControlViewModel
     weak var delegate: PlayerControlViewDelegate?
     
     // MARK: - Methods
-    init(frame: CGRect = .zero, factory: Factory) {
-        self.factory = factory
+    init(frame: CGRect = .zero, viewModel: PlayerControlViewModel) {
+        self.viewModel = viewModel
         super.init(frame: frame)
         setupViews()
         observeViewModel()
@@ -89,5 +88,5 @@ protocol PlayerControlViewDelegate: AnyObject {
 }
 
 protocol PlayerControlViewFactory {
-    func makePlayerControl() -> PlayerControlView
+    func makePlayerControl(player: AVPlayer) -> PlayerControlView
 }

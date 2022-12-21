@@ -6,20 +6,17 @@
 //
 
 import Foundation
-import AVKit
 import AVFoundation
 import Combine
 
 class PlayerViewModel {
     
     // MARK: - Properties
-    var player: AVPlayer
+    var player: AVPlayer = AVPlayer()
     @Published var streamURL: String?
     fileprivate var subscriptions = Set<AnyCancellable>()
     
-    
-    init(player: AVPlayer) {
-        self.player = player
+    init() {
         observeStreamURL()
     }
     
