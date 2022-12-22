@@ -23,14 +23,20 @@ class EpisodeViewModel {
         self.podCast = podCast
         self.itunesEpisodeRemoteAPI = itunesEpisodeRemoteAPI
         self.navigationTitle = podCast.trackName ?? "No title"
-        self.fetchEpisode()
     }
     
     func fetchEpisode() {
         showLoadingIndicator = true
         guard let feedItem = podCast.feedUrl else {
+            showLoadingIndicator = false
             return
         }
+        
+        guard feedItem != "" else {
+            showLoadingIndicator = false
+            return
+        }
+        
         itunesEpisodeRemoteAPI.fetchEpisode(urlString: feedItem) { [weak self] response in
             guard let strongSelf = self else {
                 return

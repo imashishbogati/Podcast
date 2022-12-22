@@ -16,6 +16,11 @@
 		0BB7BC6B294F1542006D560E /* PlayerControlViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB7BC6A294F1542006D560E /* PlayerControlViewModel.swift */; };
 		0BB7BC6D294F2548006D560E /* SoundControlViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB7BC6C294F2548006D560E /* SoundControlViewModel.swift */; };
 		0BB7BCC42954150F006D560E /* FavoriteCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB7BCC32954150F006D560E /* FavoriteCollectionViewCell.swift */; };
+		0BB7BCC7295451D9006D560E /* FavoriteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB7BCC6295451D9006D560E /* FavoriteViewModel.swift */; };
+		0BB7BCCC2954526D006D560E /* SearchViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB7BCCB2954526D006D560E /* SearchViewControllerTests.swift */; };
+		0BB7BCCF29545363006D560E /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 0BB7BCCE29545363006D560E /* SDWebImage */; };
+		0BB7BCD329545607006D560E /* SearchViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB7BCD229545607006D560E /* SearchViewModelTests.swift */; };
+		0BB7BCD529545CC5006D560E /* EpisodeViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB7BCD429545CC5006D560E /* EpisodeViewModelTest.swift */; };
 		0BF84FBF294632A6004F044D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF84FBE294632A6004F044D /* AppDelegate.swift */; };
 		0BF84FC1294632A6004F044D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF84FC0294632A6004F044D /* SceneDelegate.swift */; };
 		0BF84FC8294632A7004F044D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0BF84FC7294632A7004F044D /* Assets.xcassets */; };
@@ -75,6 +80,10 @@
 		0BB7BC6A294F1542006D560E /* PlayerControlViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerControlViewModel.swift; sourceTree = "<group>"; };
 		0BB7BC6C294F2548006D560E /* SoundControlViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundControlViewModel.swift; sourceTree = "<group>"; };
 		0BB7BCC32954150F006D560E /* FavoriteCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteCollectionViewCell.swift; sourceTree = "<group>"; };
+		0BB7BCC6295451D9006D560E /* FavoriteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewModel.swift; sourceTree = "<group>"; };
+		0BB7BCCB2954526D006D560E /* SearchViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewControllerTests.swift; sourceTree = "<group>"; };
+		0BB7BCD229545607006D560E /* SearchViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModelTests.swift; sourceTree = "<group>"; };
+		0BB7BCD429545CC5006D560E /* EpisodeViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeViewModelTest.swift; sourceTree = "<group>"; };
 		0BF84FBB294632A6004F044D /* PodCast.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PodCast.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BF84FBE294632A6004F044D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0BF84FC0294632A6004F044D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -125,6 +134,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0BB7BCCF29545363006D560E /* SDWebImage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -146,6 +156,53 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		0BB7BCC5295451C7006D560E /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				0BB7BCC6295451D9006D560E /* FavoriteViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		0BB7BCC8295451F6006D560E /* Favorite */ = {
+			isa = PBXGroup;
+			children = (
+				0BB7BCC9295451FB006D560E /* Persistences */,
+			);
+			path = Favorite;
+			sourceTree = "<group>";
+		};
+		0BB7BCC9295451FB006D560E /* Persistences */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Persistences;
+			sourceTree = "<group>";
+		};
+		0BB7BCCA29545255006D560E /* ViewControllerTests */ = {
+			isa = PBXGroup;
+			children = (
+				0BB7BCCB2954526D006D560E /* SearchViewControllerTests.swift */,
+			);
+			path = ViewControllerTests;
+			sourceTree = "<group>";
+		};
+		0BB7BCCD29545363006D560E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		0BB7BCD1295455F1006D560E /* ViewModelTests */ = {
+			isa = PBXGroup;
+			children = (
+				0BB7BCD229545607006D560E /* SearchViewModelTests.swift */,
+				0BB7BCD429545CC5006D560E /* EpisodeViewModelTest.swift */,
+			);
+			path = ViewModelTests;
+			sourceTree = "<group>";
+		};
 		0BF84FB2294632A6004F044D = {
 			isa = PBXGroup;
 			children = (
@@ -153,6 +210,7 @@
 				0BF84FD4294632A8004F044D /* PodCastTests */,
 				0BF84FDE294632A8004F044D /* PodCastUITests */,
 				0BF84FBC294632A6004F044D /* Products */,
+				0BB7BCCD29545363006D560E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -182,6 +240,8 @@
 		0BF84FD4294632A8004F044D /* PodCastTests */ = {
 			isa = PBXGroup;
 			children = (
+				0BB7BCD1295455F1006D560E /* ViewModelTests */,
+				0BB7BCCA29545255006D560E /* ViewControllerTests */,
 				0BF84FD5294632A8004F044D /* PodCastTests.swift */,
 			);
 			path = PodCastTests;
@@ -220,6 +280,7 @@
 		0BF84FF0294632DE004F044D /* DataLayer */ = {
 			isa = PBXGroup;
 			children = (
+				0BB7BCC8295451F6006D560E /* Favorite */,
 				0BF8509F294A0B1E004F044D /* Episode */,
 				0BF8500B2946D9EA004F044D /* Search */,
 				0BF850082946D903004F044D /* Enums */,
@@ -249,6 +310,7 @@
 		0BF84FF529463499004F044D /* Favorites */ = {
 			isa = PBXGroup;
 			children = (
+				0BB7BCC5295451C7006D560E /* ViewModel */,
 				0BB7BCC2295414F4006D560E /* Views */,
 				0BF84FF62946349E004F044D /* Controller */,
 			);
@@ -512,6 +574,9 @@
 				0BF84FD3294632A8004F044D /* PBXTargetDependency */,
 			);
 			name = PodCastTests;
+			packageProductDependencies = (
+				0BB7BCCE29545363006D560E /* SDWebImage */,
+			);
 			productName = PodCastTests;
 			productReference = 0BF84FD1294632A8004F044D /* PodCastTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -634,6 +699,7 @@
 				0BF850032946D7B3004F044D /* NetworkManager.swift in Sources */,
 				0BF850452947667E004F044D /* SearchViewModel.swift in Sources */,
 				0BF85047294835A8004F044D /* SearchResult.swift in Sources */,
+				0BB7BCC7295451D9006D560E /* FavoriteViewModel.swift in Sources */,
 				0BF84FC1294632A6004F044D /* SceneDelegate.swift in Sources */,
 				0BF84FF8294634A9004F044D /* FavoriteViewController.swift in Sources */,
 				0BF850102946DA65004F044D /* ItunesPodCastSearchRemoteAPI.swift in Sources */,
@@ -652,7 +718,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0BB7BCCC2954526D006D560E /* SearchViewControllerTests.swift in Sources */,
 				0BF84FD6294632A8004F044D /* PodCastTests.swift in Sources */,
+				0BB7BCD529545CC5006D560E /* EpisodeViewModelTest.swift in Sources */,
+				0BB7BCD329545607006D560E /* SearchViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1007,6 +1076,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 0B6F5969294C5CF200D05C2A /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
+		};
+		0BB7BCCE29545363006D560E /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0BF8504F29484041004F044D /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
 		};
 		0BF8505029484041004F044D /* SDWebImage */ = {
 			isa = XCSwiftPackageProductDependency;
