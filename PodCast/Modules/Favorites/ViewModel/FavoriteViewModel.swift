@@ -19,7 +19,8 @@ class FavoriteViewModel {
         fetchEpisodes()
     }
     
-    fileprivate func fetchEpisodes() {
+    @objc
+    func fetchEpisodes() {
         localPersistence.fetch { [weak self] response in
             switch response {
             case .success(let podCast):

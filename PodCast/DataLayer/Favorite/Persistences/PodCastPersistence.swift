@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 protocol PodCastPersistence {
-    func save(podcast: Podcast, completion: @escaping (Result<Podcast, Error>) -> Void)
+    func save(podcast: Podcast)
     func fetch(completion: @escaping (Result<[Podcast], Error>) -> Void)
-    func delete(podcast: Podcast, completion: @escaping (Result<Bool, Error>) -> Void)
+    func delete(podcast: Podcast)
 }

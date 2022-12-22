@@ -18,17 +18,18 @@ class FavoritePodcastPersistence: PodCastPersistence {
         self.podcastPersistence = episodePersistence
     }
     
-    func save(podcast: Podcast, completion: @escaping (Result<Podcast, Error>) -> Void) {
+    func save(podcast: Podcast) {
         if let data = userDefault.object(forKey: key) as? Data {
             var podcasts = podcastPersistence.decode(data: data)
+            if podcasts.contains(podcast) {
+                return
+            }
             podcasts.append(podcast)
             let encode = podcastPersistence.encode(podcast: podcasts)
             userDefault.set(encode, forKey: key)
-            completion(.success(podcast))
         } else {
             let encode = podcastPersistence.encode(podcast: [podcast])
             userDefault.set(encode, forKey: key)
-            completion(.success(podcast))
         }
     }
     
@@ -41,7 +42,7 @@ class FavoritePodcastPersistence: PodCastPersistence {
         }
     }
     
-    func delete(podcast: Podcast, completion: @escaping (Result<Bool, Error>) -> Void) {
+    func delete(podcast: Podcast) {
         if let data = userDefault.object(forKey: key) as? Data {
             var podcasts = podcastPersistence.decode(data: data)
             for (index, item) in podcasts.enumerated() {
@@ -51,7 +52,6 @@ class FavoritePodcastPersistence: PodCastPersistence {
             }
             let encode = podcastPersistence.encode(podcast: podcasts)
             userDefault.set(encode, forKey: key)
-            completion(.success(true))
         }
     }
     

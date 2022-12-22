@@ -18,6 +18,8 @@ class EpisodeViewModel {
     @Published var episodes: [Episode] = []
     @Published var showLoadingIndicator: Bool = true
     @Published var navigationTitle = ""
+    @Published var isFavorite: Bool = false
+    @Published var isSaveSuccess: Bool = false
     
     // MARK: - Methods
     init(itunesEpisodeRemoteAPI: EpisodeRemoteAPI, podCast: Podcast, persistenceStorage: PodCastPersistence) {
@@ -25,6 +27,30 @@ class EpisodeViewModel {
         self.persistenceStorage = persistenceStorage
         self.itunesEpisodeRemoteAPI = itunesEpisodeRemoteAPI
         self.navigationTitle = podCast.trackName ?? "No title"
+        checkFavorite()
+    }
+    
+    fileprivate func checkFavorite() {
+        persistenceStorage.fetch { [unowned self] response in
+            switch response {
+            case .success(let podCasts):
+                if podCasts.contains(self.podCast) {
+                    self.isFavorite = true
+                }
+            case .failure(let failure):
+                debugPrint(failure)
+            }
+        }
+    }
+    
+    fileprivate func saveFavorite() {
+        persistenceStorage.save(podcast: podCast)
+        isFavorite = true
+    }
+    
+    fileprivate func deleteFavorite() {
+        persistenceStorage.delete(podcast: podCast)
+        isFavorite = false
     }
     
     func fetchEpisode() {
@@ -53,6 +79,14 @@ class EpisodeViewModel {
         }
     }
     
+    @objc
+    func toggleFavorite() {
+        if isFavorite {
+            deleteFavorite()
+        } else {
+            saveFavorite()
+        }
+    }
 }
 
 // MARK: - Protocol

@@ -28,14 +28,26 @@ class FavoriteViewController: UIViewController {
     
     fileprivate let cellID = "FavoriteCellID"
     
-    typealias Factory = FavoriteViewModelFactory
+    typealias Factory = FavoriteViewModelFactory & EpisodeViewControllerFactory
     var factory: Factory
     
     lazy var viewModel = factory.makeFavoriteViewModel()
     
     fileprivate var subscriptions = Set<AnyCancellable>()
     
-    fileprivate var podcasts: [Podcast] = []
+    fileprivate var podcasts: [Podcast] = [] {
+        didSet {
+            if refreshControl.isRefreshing {
+                refreshControl.endRefreshing()
+            }
+        }
+    }
+    
+    lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(viewModel, action: #selector(viewModel.fetchEpisodes), for: .valueChanged)
+        return refreshControl
+    }()
     
     // MARK: - Methods
     init(factory: Factory) {
@@ -60,6 +72,7 @@ class FavoriteViewController: UIViewController {
     }
     
     fileprivate func setupCollectionView() {
+        collectionView.refreshControl = refreshControl
         view.addSubview(collectionView)
         collectionView.snp.makeConstraints { make in
             make.top.leading.trailing.bottom.equalToSuperview()
@@ -83,7 +96,8 @@ extension FavoriteViewController: UICollectionViewDelegate, UICollectionViewData
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! FavoriteCollectionViewCell
-        cell.artistNameLabel.text = podcasts[indexPath.item].artistName
+        let podCast = podcasts[indexPath.item]
+        cell.configureCellData(podCast: podCast)
         return cell
     }
     
@@ -98,6 +112,12 @@ extension FavoriteViewController: UICollectionViewDelegate, UICollectionViewData
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 16
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let podCast = podcasts[indexPath.item]
+        let episodeVC = factory.makeEpisodeViewController(podCast: podCast)
+        navigationController?.pushViewController(episodeVC, animated: true)
     }
     
 }

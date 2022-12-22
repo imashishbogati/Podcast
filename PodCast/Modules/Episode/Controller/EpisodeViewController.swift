@@ -20,6 +20,7 @@ class EpisodeViewController: UITableViewController {
     var factory: Factory
     
     lazy var viewModel = factory.makeEpisodeViewModel(podCast: podCast!)
+    lazy var favoriteButton = UIBarButtonItem(image: .init(systemName: "heart"), style: .plain, target: viewModel, action: #selector(viewModel.toggleFavorite))
     
     private let cellID = "episodeCell"
     lazy var loadingIndicator = UIActivityIndicatorView()
@@ -44,6 +45,7 @@ class EpisodeViewController: UITableViewController {
         observeLoadingIndicator()
         observeNavigationTitle()
         setupNavigationLeftButtons()
+        observeIsFavorite()
     }
     
     fileprivate func setupViews() {
@@ -59,9 +61,7 @@ class EpisodeViewController: UITableViewController {
     }
     
     fileprivate func setupNavigationLeftButtons() {
-        let favoriteButton = UIBarButtonItem(title: "Favorite", style: .plain, target: self, action: #selector(didTapSetFavorite))
         navigationItem.setRightBarButton(favoriteButton, animated: true)
-        
     }
     
     fileprivate func setupTableView() {
@@ -96,12 +96,12 @@ class EpisodeViewController: UITableViewController {
             }.store(in: &subscriptions)
     }
     
-    // MARK: - Actions
-    @objc
-    func didTapSetFavorite() {
-        viewModel.persistenceStorage.save(podcast: self.podCast!) { response in
-            debugPrint(response)
-        }
+    fileprivate func observeIsFavorite() {
+        viewModel.$isFavorite.receive(on: DispatchQueue.main)
+            .sink { [weak self] status in
+                self?.favoriteButton.tintColor = status == true ? UIColor.purple : .link
+                self?.favoriteButton.image = status == true ? .init(systemName: "heart.fill") : .init(systemName: "heart")
+            }.store(in: &subscriptions)
     }
 }
 

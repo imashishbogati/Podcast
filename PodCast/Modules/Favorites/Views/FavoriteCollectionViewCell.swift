@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SDWebImage
 import SnapKit
 
 class FavoriteCollectionViewCell: UICollectionViewCell {
@@ -75,6 +76,12 @@ class FavoriteCollectionViewCell: UICollectionViewCell {
         for view in views {
             stackView.addArrangedSubview(view)
         }
+    }
+    
+    func configureCellData(podCast: Podcast) {
+        podCastImage.sd_setImage(with: URL(string: podCast.artworkUrl100 ?? "")!)
+        trackNameLabel.text = podCast.trackName ?? "No Title"
+        artistNameLabel.text = podCast.artistName ?? "No Artist Name"
     }
     
 }

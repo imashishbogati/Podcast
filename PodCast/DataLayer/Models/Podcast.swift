@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Podcast: Codable {
+struct Podcast: Codable, Equatable {
     let trackName: String?
     let artistName: String?
     let artworkUrl100: String?
