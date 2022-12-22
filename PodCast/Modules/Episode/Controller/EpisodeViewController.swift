@@ -29,6 +29,7 @@ class EpisodeViewController: UITableViewController {
         self.podCast = podCast
         self.factory = factory
         super.init(style: style)
+        viewModel.fetchEpisode()
     }
     
     required init?(coder: NSCoder) {
@@ -42,6 +43,7 @@ class EpisodeViewController: UITableViewController {
         observeViewModel()
         observeLoadingIndicator()
         observeNavigationTitle()
+        setupNavigationLeftButtons()
     }
     
     fileprivate func setupViews() {
@@ -54,6 +56,12 @@ class EpisodeViewController: UITableViewController {
             make.centerX.equalTo(tableView.snp.centerX)
             make.centerY.equalTo(tableView.snp.centerY).offset(-50)
         }
+    }
+    
+    fileprivate func setupNavigationLeftButtons() {
+        let favoriteButton = UIBarButtonItem(title: "Favorite", style: .plain, target: self, action: #selector(didTapSetFavorite))
+        navigationItem.setRightBarButton(favoriteButton, animated: true)
+        
     }
     
     fileprivate func setupTableView() {
@@ -86,6 +94,14 @@ class EpisodeViewController: UITableViewController {
             .sink { [weak self] title in
                 self?.navigationItem.title = title
             }.store(in: &subscriptions)
+    }
+    
+    // MARK: - Actions
+    @objc
+    func didTapSetFavorite() {
+        viewModel.persistenceStorage.save(podcast: self.podCast!) { response in
+            debugPrint(response)
+        }
     }
 }
 

@@ -12,6 +12,7 @@ class EpisodeViewModel {
     
     // MARK: - Properties
     var itunesEpisodeRemoteAPI: EpisodeRemoteAPI
+    var persistenceStorage: PodCastPersistence
     var podCast: Podcast
     
     @Published var episodes: [Episode] = []
@@ -19,8 +20,9 @@ class EpisodeViewModel {
     @Published var navigationTitle = ""
     
     // MARK: - Methods
-    init(itunesEpisodeRemoteAPI: EpisodeRemoteAPI, podCast: Podcast) {
+    init(itunesEpisodeRemoteAPI: EpisodeRemoteAPI, podCast: Podcast, persistenceStorage: PodCastPersistence) {
         self.podCast = podCast
+        self.persistenceStorage = persistenceStorage
         self.itunesEpisodeRemoteAPI = itunesEpisodeRemoteAPI
         self.navigationTitle = podCast.trackName ?? "No title"
     }
@@ -50,8 +52,10 @@ class EpisodeViewModel {
             }
         }
     }
+    
 }
 
+// MARK: - Protocol
 protocol EpisodeViewModelFactory {
     func makeEpisodeViewModel(podCast: Podcast) -> EpisodeViewModel
 }

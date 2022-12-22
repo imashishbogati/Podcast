@@ -53,7 +53,7 @@ extension PodCastDependencyContainer: EpisodeViewControllerFactory {
 
 extension PodCastDependencyContainer: EpisodeViewModelFactory {
     func makeEpisodeViewModel(podCast: Podcast) -> EpisodeViewModel {
-        return EpisodeViewModel(itunesEpisodeRemoteAPI: makeEpisodeRemoteAPI(), podCast: podCast)
+        return EpisodeViewModel(itunesEpisodeRemoteAPI: makeEpisodeRemoteAPI(), podCast: podCast, persistenceStorage: makeFavoritePodcastPersistence())
     }
 }
 
@@ -113,6 +113,26 @@ extension PodCastDependencyContainer: AudioSliderViewModelFactory {
 // MARK: - FavoriteViewController
 extension PodCastDependencyContainer: FavoriteViewControllerFactory {
     func makeFavoriteViewController() -> FavoriteViewController {
-        return FavoriteViewController()
+        return FavoriteViewController(factory: self)
     }
 }
+
+extension PodCastDependencyContainer: FavoriteViewModelFactory {
+    func makeFavoriteViewModel() -> FavoriteViewModel {
+        return FavoriteViewModel(localDataStore: makeFavoritePodcastPersistence())
+    }
+}
+
+extension PodCastDependencyContainer: FavoritePodcastPersistenceFactory {
+    func makeFavoritePodcastPersistence() -> PodCastPersistence {
+        return FavoritePodcastPersistence(episodePersistence: makePropertyListCoder())
+    }
+}
+
+extension PodCastDependencyContainer: FavoritePodCastPropertyListCoderFactory {
+    func makePropertyListCoder() -> FavoritePodcastCoding {
+        return FavoritePodCastPropertyListCoder()
+    }
+}
+
+

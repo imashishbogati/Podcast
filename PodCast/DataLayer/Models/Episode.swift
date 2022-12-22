@@ -8,7 +8,7 @@
 import Foundation
 import FeedKit
 
-class Episode {
+class Episode: Codable {
     let title: String?
     let lastBuildDate: Date?
     var image: String?

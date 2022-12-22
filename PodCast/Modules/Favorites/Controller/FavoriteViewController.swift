@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 import SnapKit
 
 class FavoriteViewController: UIViewController {
@@ -27,11 +28,30 @@ class FavoriteViewController: UIViewController {
     
     fileprivate let cellID = "FavoriteCellID"
     
+    typealias Factory = FavoriteViewModelFactory
+    var factory: Factory
+    
+    lazy var viewModel = factory.makeFavoriteViewModel()
+    
+    fileprivate var subscriptions = Set<AnyCancellable>()
+    
+    fileprivate var podcasts: [Podcast] = []
+    
     // MARK: - Methods
+    init(factory: Factory) {
+        self.factory = factory
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
         setupCollectionView()
+        observeViewModel()
     }
     
     fileprivate func setupViews() {
@@ -45,16 +65,25 @@ class FavoriteViewController: UIViewController {
             make.top.leading.trailing.bottom.equalToSuperview()
         }
     }
+    
+    fileprivate func observeViewModel() {
+        viewModel.$podCasts.receive(on: DispatchQueue.main)
+            .sink { [weak self] podcasts in
+                self?.podcasts = podcasts
+                self?.collectionView.reloadData()
+            }.store(in: &subscriptions)
+    }
 }
 
 
 extension FavoriteViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4
+        return podcasts.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! FavoriteCollectionViewCell
+        cell.artistNameLabel.text = podcasts[indexPath.item].artistName
         return cell
     }
     
