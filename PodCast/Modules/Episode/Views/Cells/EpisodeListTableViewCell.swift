@@ -15,7 +15,6 @@ class EpisodeListTableViewCell: UITableViewCell {
     let podCastImage: UIImageView = {
         let image = UIImageView()
         image.layer.cornerRadius = 3
-        image.contentMode = .scaleAspectFit
         return image
     }()
     

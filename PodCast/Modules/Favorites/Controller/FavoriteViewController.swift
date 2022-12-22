@@ -6,25 +6,74 @@
 //
 
 import UIKit
+import SnapKit
 
 class FavoriteViewController: UIViewController {
 
+    // MARK: - Properties
+    let layout: UICollectionViewFlowLayout = {
+        let layout = UICollectionViewFlowLayout()
+        return layout
+    }()
+    
+    lazy var collectionView: UICollectionView = {
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.backgroundColor = .secondarySystemBackground
+        collectionView.register(FavoriteCollectionViewCell.self, forCellWithReuseIdentifier: cellID)
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        return collectionView
+    }()
+    
+    fileprivate let cellID = "FavoriteCellID"
+    
+    // MARK: - Methods
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        setupViews()
+        setupCollectionView()
+    }
+    
+    fileprivate func setupViews() {
+        navigationController?.navigationBar.prefersLargeTitles = true
         view.backgroundColor = .secondarySystemBackground
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    fileprivate func setupCollectionView() {
+        view.addSubview(collectionView)
+        collectionView.snp.makeConstraints { make in
+            make.top.leading.trailing.bottom.equalToSuperview()
+        }
     }
-    */
+}
 
+
+extension FavoriteViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 4
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! FavoriteCollectionViewCell
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = (view.frame.width - 3 * 16) / 2
+        return .init(width: width, height: width + 46)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return .init(top: 16, left: 16, bottom: 16, right: 16)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 16
+    }
+    
+}
+
+// MARK: - Protocols
+protocol FavoriteViewControllerFactory {
+    func makeFavoriteViewController() -> FavoriteViewController
 }

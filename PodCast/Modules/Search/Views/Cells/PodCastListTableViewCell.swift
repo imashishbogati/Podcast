@@ -14,7 +14,6 @@ class PodCastListTableViewCell: UITableViewCell {
     let podCastImage: UIImageView = {
         let image = UIImageView()
         image.layer.cornerRadius = 3
-        image.contentMode = .scaleAspectFit
         return image
     }()
     
@@ -61,8 +60,8 @@ class PodCastListTableViewCell: UITableViewCell {
         podCastImage.snp.makeConstraints { make in
             make.top.equalTo(self).offset(8)
             make.leading.equalTo(self).offset(16)
-            make.height.equalTo(100)
             make.width.equalTo(100)
+            make.height.equalTo(podCastImage.snp.height)
         }
         
         trackNameLabel.snp.makeConstraints { make in

@@ -108,3 +108,11 @@ extension PodCastDependencyContainer: AudioSliderViewModelFactory {
         return AudioSliderViewModel(player: player)
     }
 }
+
+
+// MARK: - FavoriteViewController
+extension PodCastDependencyContainer: FavoriteViewControllerFactory {
+    func makeFavoriteViewController() -> FavoriteViewController {
+        return FavoriteViewController()
+    }
+}
