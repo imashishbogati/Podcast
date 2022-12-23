@@ -19,7 +19,6 @@ class EpisodeViewModel {
     @Published var showLoadingIndicator: Bool = true
     @Published var navigationTitle = ""
     @Published var isFavorite: Bool = false
-    @Published var isSaveSuccess: Bool = false
     
     // MARK: - Methods
     init(itunesEpisodeRemoteAPI: EpisodeRemoteAPI, podCast: Podcast, persistenceStorage: PodCastPersistence) {

@@ -49,6 +49,17 @@ final class EpisodeViewModelTest: XCTestCase {
         }
         wait(for: [expectation], timeout: 2.0)
     }
+    
+    func test_savePodcast_shouldSavePodcast() {
+        let remoteAPI = MockEpisodeRemoteAPI()
+        let podCast = makePodCast(feedURL: "")
+        let persistence = MockPodCastPersistence()
+        let sut = makeSut(remoteAPI: remoteAPI, podCast: podCast, persistence: persistence)
+        sut.toggleFavorite()
+        XCTAssertEqual(sut.isFavorite, true)
+        sut.toggleFavorite()
+        XCTAssertEqual(sut.isFavorite, false)
+    }
 }
 
 fileprivate func makePodCast(feedURL: String = "test") -> Podcast {
@@ -67,8 +78,8 @@ fileprivate func makeEpisodeResponse() -> Episode {
     return Episode(feedItem: rssFeedItem)
 }
 
-fileprivate func makeSut(remoteAPI: EpisodeRemoteAPI, podCast: Podcast = makePodCast()) -> EpisodeViewModel {
-    return EpisodeViewModel(itunesEpisodeRemoteAPI: remoteAPI, podCast: podCast)
+fileprivate func makeSut(remoteAPI: EpisodeRemoteAPI, podCast: Podcast = makePodCast(), persistence: PodCastPersistence = MockPodCastPersistence()) -> EpisodeViewModel {
+    return EpisodeViewModel(itunesEpisodeRemoteAPI: remoteAPI, podCast: podCast, persistenceStorage: persistence)
 }
 
 class MockEpisodeRemoteAPI: EpisodeRemoteAPI {
@@ -84,8 +95,27 @@ class MockEpisodeRemoteAPI: EpisodeRemoteAPI {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 completion(.success([makeEpisodeResponse()]))
             }
-            
         }
     }
     
+}
+
+class MockPodCastPersistence: PodCastPersistence {
+    var podCasts: [Podcast] = []
+    
+    func save(podcast: Podcast) {
+        podCasts.append(podcast)
+    }
+    
+    func fetch(completion: @escaping (Result<[Podcast], Error>) -> Void) {
+        completion(.success(podCasts))
+    }
+    
+    func delete(podcast: Podcast) {
+        for (index, item) in podCasts.enumerated() {
+            if item.trackName == podcast.trackName {
+                podCasts.remove(at: index)
+            }
+        }
+    }
 }
